@@ -140,6 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSlot
   _highlight: {fileID: 4604614543059350374}
+  currentRoom: {fileID: 0}
+  _roomSlotPrefab: {fileID: 4373446530869854217}
+  _roomPlaceholderPrefab: {fileID: 712204939152078985, guid: 495dc89ca3f65aa43adf385fd1fc3c28, type: 3}
 --- !u!61 &1319563191357995839
 BoxCollider2D:
   m_ObjectHideFlags: 0

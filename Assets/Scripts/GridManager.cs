@@ -22,7 +22,7 @@ public class GridManager : MonoBehaviour
                 float yPos = y * 4f;
 
                 var spawnedRoomSlot = Instantiate(_roomSlotPrefab, new Vector3(xPos,yPos,0f), Quaternion.identity);
-                spawnedRoomSlot.name = $"Tile {x} {y}";
+                spawnedRoomSlot.name = $"Room {spawnedRoomSlot.transform.position.x} {spawnedRoomSlot.transform.position.y}";
             }
         }
     }
