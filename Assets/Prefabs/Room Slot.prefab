@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3113373421966739155}
   - component: {fileID: -8663011193586162960}
-  - component: {fileID: 8107781450407382258}
+  - component: {fileID: 1319563191357995839}
   m_Layer: 0
   m_Name: Room Slot
   m_TagString: Untagged
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSlot
   _highlight: {fileID: 4604614543059350374}
---- !u!61 &8107781450407382258
+--- !u!61 &1319563191357995839
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
