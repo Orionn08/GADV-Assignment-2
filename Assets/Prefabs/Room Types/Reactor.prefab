@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3842653417916446848
+--- !u!1001 &7639792318804875058
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,16 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8663011193586162960, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
-      propertyPath: _roomPlaceholderPrefab
+      propertyPath: _selectedRoom
       value: 
-      objectReference: {fileID: 712204939152078985}
+      objectReference: {fileID: 6247729428604311355}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.08
+      value: -34.496593
       objectReference: {fileID: 0}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: -4.6443896
       objectReference: {fileID: 0}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Name
-      value: Room Placeholder Variant
+      value: Reactor
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.b
@@ -62,19 +62,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.g
-      value: 0.0892635
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.97415185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
---- !u!1 &712204939152078985 stripped
+--- !u!1 &6247729428604311355 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
-  m_PrefabInstance: {fileID: 3842653417916446848}
+  m_PrefabInstance: {fileID: 7639792318804875058}
   m_PrefabAsset: {fileID: 0}
