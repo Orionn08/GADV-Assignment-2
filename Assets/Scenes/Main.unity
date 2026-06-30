@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &86851912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 86851913}
+  m_Layer: 0
+  m_Name: Rooms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &86851913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86851912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149241636
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,12 +307,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4388899747337525858, guid: 936165c135efaee4cbf50fd0c566cdaf, type: 3}
+  m_Sprite: {fileID: 5931842347579807508, guid: f4a28d613ba8ee747b5c78e2e6c85c0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.05, y: 1.64}
+  m_Size: {x: 4.96, y: 1.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -530,7 +561,7 @@ GameObject:
   - component: {fileID: 570341057}
   - component: {fileID: 570341056}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Room Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +610,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.59119487, g: 0.59119487, b: 0.59119487, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -687,7 +718,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000071edb09a299ff965c579ae84
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -729,6 +760,68 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.25, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &697482302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 697482304}
+  - component: {fileID: 697482303}
+  m_Layer: 0
+  m_Name: Room Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &697482303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697482302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02123422736e15c4d865481813e5070b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomManager
+  _roomButtonPrefab: {fileID: 4128663259122577783, guid: b691c08e8c083e5438c2d9886ad3581b, type: 3}
+  _rooms: {fileID: 998660633}
+  _roomPrefabs:
+  - {fileID: 7984739464435304697, guid: f453b995b84699941b8dd82bdd727283, type: 3}
+  - {fileID: 6296828180990621263, guid: 7b5b2217e24237342ab34fc30e4403b8, type: 3}
+  - {fileID: 1377936192949100531, guid: 4ebed0357bf7f3e41833dc93e63e2b17, type: 3}
+  - {fileID: 4094202660964023148, guid: 33503606c23b98948a9f0672b4fe1127, type: 3}
+  - {fileID: 712204939152078985, guid: 495dc89ca3f65aa43adf385fd1fc3c28, type: 3}
+  - {fileID: 6247729428604311355, guid: a5816dcf35835e749a1e8d35baf5843c, type: 3}
+  - {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
+  _roomIcons:
+  - {fileID: -1411276610193787019, guid: d9f7e398e93b6004a8fa1cb86261c5ef, type: 3}
+  - {fileID: -4958364401730735896, guid: 1771603aacecbbb4382315b89e10ec23, type: 3}
+  - {fileID: 4326089801068299302, guid: 3dea34c2e05c6ba48958cada93957696, type: 3}
+  - {fileID: -1131169511269099867, guid: a678dddaf64baf941abd394bf077c16c, type: 3}
+  - {fileID: -2297236053363534818, guid: d9bee31cd6dea3b46beab91b3ab50030, type: 3}
+  - {fileID: -7752581559301894005, guid: 9ccbc8c2d84d59947bf0ae4849a007fc, type: 3}
+  - {fileID: -3847426174549003344, guid: 23a3431dd7206c440bf6513eb531f45b, type: 3}
+--- !u!4 &697482304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697482302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.19045, y: -15.66511, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -798,7 +891,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3790626, g: 0.35534585, b: 1, a: 1}
@@ -822,8 +915,40 @@ Transform:
   m_LocalPosition: {x: 2.5, y: -16, z: 0}
   m_LocalScale: {x: 80, y: 10, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 998660633}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &998660632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 998660633}
+  m_Layer: 0
+  m_Name: Rooms Display
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &998660633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998660632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 858111006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1332682502
 GameObject:
@@ -838,7 +963,7 @@ GameObject:
   - component: {fileID: 1332682504}
   - component: {fileID: 1332682503}
   m_Layer: 5
-  m_Name: Room Menu Button
+  m_Name: Room Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -905,7 +1030,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1332682506
 RectTransform:
@@ -959,6 +1084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   _width: 3
   _height: 3
+  _rooms: {fileID: 86851913}
   _roomSlotPrefab: {fileID: -8663011193586162960, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
 --- !u!4 &2054607880
 Transform:
@@ -1009,8 +1135,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.029319763, y: -0.036348343}
+  m_SizeDelta: {x: -0.058664322, y: -0.07269728}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115160659
 MonoBehaviour:
@@ -1123,7 +1249,7 @@ GameObject:
   - component: {fileID: 2126733746}
   - component: {fileID: 2126733747}
   m_Layer: 5
-  m_Name: ButtonController
+  m_Name: Room Menu Button Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1160,7 +1286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24287200c0386864dbaea4080caeb8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomButton
-  roomMenu: {fileID: 858111004}
+  _roomMenu: {fileID: 858111004}
+  _roomMenuButton: {fileID: 570341054}
 --- !u!1001 &2712382020723688558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1230,3 +1357,5 @@ SceneRoots:
   - {fileID: 1332682506}
   - {fileID: 459004723}
   - {fileID: 858111006}
+  - {fileID: 697482304}
+  - {fileID: 86851913}

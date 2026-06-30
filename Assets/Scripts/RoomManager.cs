@@ -1,16 +1,21 @@
+using System.Threading;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject _roomButtonPrefab;
+    [SerializeField] private Transform _rooms;
+    [SerializeField] private GameObject[] _roomPrefabs;
+    [SerializeField] private Sprite[] _roomIcons;
+
     void Start()
     {
-        
-    }
+        for (int i = 0; i < _roomPrefabs.Length; i++)
+        {
+            GameObject buttonObj = Instantiate(_roomButtonPrefab, _rooms);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            RoomButton button = buttonObj.GetComponent<RoomButton>();
+            button.Setup(_roomPrefabs[i], _roomIcons[i]);
+        }
     }
 }

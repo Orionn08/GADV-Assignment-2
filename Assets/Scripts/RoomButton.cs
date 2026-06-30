@@ -1,21 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomButton : MonoBehaviour
 {
-    [SerializeField] private GameObject roomMenu;
-    [SerializeField] private GameObject roomMenuButton;
+     private GameObject _roomPrefab;
+    private Button _button;
+    [SerializeField] private Image iconImage;
 
-    public void ToggleRoomMenu()
+    public void Setup(GameObject prefab, Sprite icon)
     {
-        if(!roomMenu.activeSelf)
-        {
-            roomMenuButton.transform.localPosition = new Vector2(-27f, 2f);
-            roomMenu.SetActive(true);
-        }
-        else
-        {
-            roomMenuButton.transform.localPosition = new Vector2(-27f, -6f);
-            roomMenu.SetActive(false);
-        }
+        _button = GetComponent<Button>();
+        _roomPrefab = prefab;
+        iconImage.sprite = icon;
+
+        _button.onClick.RemoveAllListeners();
+        _button.onClick.AddListener(OnClick);
     }
+
+    private void OnClick()
+    {
+        Debug.Log("Selected: " + _roomPrefab.name);
+    }
+    
 }
