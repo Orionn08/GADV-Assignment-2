@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.LightTransport.PostProcessing;
 
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
     [SerializeField] private Transform _rooms;
-    [SerializeField] private RoomSlot _roomSlotPrefab;
+    [SerializeField] private Room _roomSlotPrefab;
 
     void Start()
     {

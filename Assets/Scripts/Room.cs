@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RoomSlot : MonoBehaviour
+public class Room : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
     [SerializeField] private GameObject _roomSlot;
     [SerializeField] private GameObject _selectedRoom;
+    [SerializeField] private Transform _rooms;
 
     void Update()
     {
@@ -37,6 +38,7 @@ public class RoomSlot : MonoBehaviour
     {
         var spawnedRoom = Instantiate(_selectedRoom, transform.position, Quaternion.identity);
         spawnedRoom.name = $"Room {_selectedRoom} {transform.position.x} {transform.position.y}";
+        spawnedRoom.transform.parent = gameObject.transform.parent;
         Destroy(gameObject);
     }
 
@@ -44,6 +46,7 @@ public class RoomSlot : MonoBehaviour
     {
         var spawnedRoom = Instantiate(_roomSlot, transform.position, Quaternion.identity);
         spawnedRoom.name = $"Room {transform.position.x} {transform.position.y}";
+        spawnedRoom.transform.parent = gameObject.transform.parent;
         Destroy(gameObject);
     }    
 }
