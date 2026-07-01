@@ -1,25 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoomButton : MonoBehaviour
 {
-     private GameObject _roomPrefab;
-    private Button _button;
+    private GameObject roomPrefab;
+    private string roomName;
+
+    private Button button;
+
     [SerializeField] private Image iconImage;
+    [SerializeField] private TMP_Text roomNameText;
 
-    public void Setup(GameObject prefab, Sprite icon)
+    public void Setup(GameObject prefab, Sprite icon, string name)
     {
-        _button = GetComponent<Button>();
-        _roomPrefab = prefab;
-        iconImage.sprite = icon;
+        roomPrefab = prefab;
+        roomName = name;
 
-        _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(OnClick);
+        button = GetComponent<Button>();
+
+        iconImage.sprite = icon;
+        roomNameText.text = name;
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(OnClick);
     }
 
     private void OnClick()
     {
-        Debug.Log("Selected: " + _roomPrefab.name);
+        Debug.Log("Selected: " + roomName);
+
+        // Later:
+        // RoomPlacement.Instance.SelectRoom(roomPrefab);
     }
-    
 }
+
+//used chat gpt to help fix the script
