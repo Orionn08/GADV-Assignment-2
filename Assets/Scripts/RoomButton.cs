@@ -1,21 +1,36 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class RoomButton : MonoBehaviour
 {
-    [SerializeField] private GameObject roomMenu;
-    [SerializeField] private GameObject roomMenuButton;
+    private GameObject roomPrefab;
+    private string roomName;
 
-    public void ToggleRoomMenu()
+    private Button button;
+
+    [SerializeField] private Image iconImage;
+    [SerializeField] private TMP_Text roomNameText;
+
+    public void Setup(GameObject prefab, Sprite icon, string name)
     {
-        if(!roomMenu.activeSelf)
-        {
-            roomMenuButton.transform.localPosition = new Vector2(-27f, 2f);
-            roomMenu.SetActive(true);
-        }
-        else
-        {
-            roomMenuButton.transform.localPosition = new Vector2(-27f, -6f);
-            roomMenu.SetActive(false);
-        }
+        roomPrefab = prefab;
+        roomName = name;
+
+        button = GetComponent<Button>();
+
+        iconImage.sprite = icon;
+        roomNameText.text = name;
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(OnClick);
+    }
+
+    private void OnClick()
+    {
+        Debug.Log("Selected: " + roomName);
+        PlacementManager.Instance.SetSelectedRoom(roomPrefab);
     }
 }
+
+//used chat gpt to help fix the script

@@ -1,11 +1,11 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using UnityEngine.LightTransport.PostProcessing;
 
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
-    [SerializeField] private RoomSlot _roomSlotPrefab;
+    [SerializeField] private Transform _rooms;
+    [SerializeField] private Room _roomSlotPrefab;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class GridManager : MonoBehaviour
                 float xPos = x * 7f;
                 float yPos = y * 4f;
 
-                var RoomSlot = Instantiate(_roomSlotPrefab, new Vector3(xPos,yPos,0f), Quaternion.identity);
+                var RoomSlot = Instantiate(_roomSlotPrefab, new Vector2(xPos,yPos), Quaternion.identity, _rooms);
                 RoomSlot.name = $"Room {RoomSlot.transform.position.x} {RoomSlot.transform.position.y}";
             }
         }
