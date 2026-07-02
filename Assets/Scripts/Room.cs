@@ -5,44 +5,23 @@ public class Room : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
     [SerializeField] private GameObject _roomSlot;
-    [SerializeField] private GameObject _selectedRoom;
     [SerializeField] private Transform _rooms;
 
-    void Update()
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-        if (hit.collider != null && hit.collider.gameObject == gameObject)
-        {
-            _highlight.SetActive(true);
-
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                PlaceRoom();
-            }
-
-            if (Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                DeleteRoom();
-            }
-        }
-        else
-        {
-            _highlight.SetActive(false);
-        }
-    }
     //asked ChatGPT for code and editied as i saw fit
-
-    void PlaceRoom()
+    public void Highlight(bool state)
     {
-        var spawnedRoom = Instantiate(_selectedRoom, transform.position, Quaternion.identity);
-        spawnedRoom.name = $"Room {_selectedRoom} {transform.position.x} {transform.position.y}";
+        _highlight.SetActive(state);
+    }
+    public void PlaceRoom(GameObject selectedRoom)
+    {
+        var spawnedRoom = Instantiate(selectedRoom, transform.position, Quaternion.identity);
+        spawnedRoom.name = $"Room {selectedRoom} {transform.position.x} {transform.position.y}";
         spawnedRoom.transform.parent = gameObject.transform.parent;
         Destroy(gameObject);
     }
 
-    void DeleteRoom()
+    public void DeleteRoom()
     {
         var spawnedRoom = Instantiate(_roomSlot, transform.position, Quaternion.identity);
         spawnedRoom.name = $"Room {transform.position.x} {transform.position.y}";

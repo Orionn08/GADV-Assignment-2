@@ -29,9 +29,7 @@ public class RoomButton : MonoBehaviour
     private void OnClick()
     {
         Debug.Log("Selected: " + roomName);
-
-        // Later:
-        // RoomPlacement.Instance.SelectRoom(roomPrefab);
+        PlacementManager.Instance.SetSelectedRoom(roomPrefab);
     }
 }
 
