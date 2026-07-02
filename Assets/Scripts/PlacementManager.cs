@@ -5,6 +5,7 @@ public class PlacementManager : MonoBehaviour
 {
     public static PlacementManager Instance;
     [SerializeField] private GameObject selectedRoomPrefab;
+    [SerializeField] private GameObject _roomSlot;
     private Camera cam;
     private Room hoveredSlot;
 
@@ -61,7 +62,7 @@ public class PlacementManager : MonoBehaviour
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            hoveredSlot.DeleteRoom();
+            hoveredSlot.DeleteRoom(_roomSlot);
         }
     }
 
