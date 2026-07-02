@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class Room : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
-    [SerializeField] private GameObject _roomSlot;
     [SerializeField] private Transform _rooms;
 
 
@@ -21,9 +20,9 @@ public class Room : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DeleteRoom()
+    public void DeleteRoom(GameObject roomSlot)
     {
-        var spawnedRoom = Instantiate(_roomSlot, transform.position, Quaternion.identity);
+        var spawnedRoom = Instantiate(roomSlot, transform.position, Quaternion.identity);
         spawnedRoom.name = $"Room {transform.position.x} {transform.position.y}";
         spawnedRoom.transform.parent = gameObject.transform.parent;
         Destroy(gameObject);

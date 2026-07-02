@@ -7,6 +7,7 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private GameObject selectedRoomPrefab;
     private Camera cam;
     private Room hoveredSlot;
+    [SerializeField] private GameObject _roomSlot;
 
     private void Awake()
     {
@@ -61,7 +62,7 @@ public class PlacementManager : MonoBehaviour
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            hoveredSlot.DeleteRoom();
+            hoveredSlot.DeleteRoom(_roomSlot);
         }
     }
 
