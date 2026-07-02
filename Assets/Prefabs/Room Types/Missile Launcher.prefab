@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Name
-      value: Room Placeholder Variant
+      value: Missile Launcher
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.b
