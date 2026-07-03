@@ -9,7 +9,6 @@ public class PlacementManager : MonoBehaviour
     private Camera cam;
     private Slot hoveredSlot;
     private Room Room;
-    [SerializeField] private GameObject _roomSlot;
 
     private void Awake()
     {
