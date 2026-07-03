@@ -5,6 +5,7 @@ public class PlacementManager : MonoBehaviour
 {
     public static PlacementManager Instance;
     [SerializeField] private GameObject selectedRoomPrefab;
+    [SerializeField] private GameObject _roomSlot;
     private Camera cam;
     private Slot hoveredSlot;
     private Room Room;
