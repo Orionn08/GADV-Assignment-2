@@ -13,10 +13,10 @@ public class Room : MonoBehaviour
         _healthBar = transform.Find("Health Bar");
         for (float i = 0; i < _maxHealth; i++)
         {
-            float xPos = -3.1f + 0.5f * i;
+            float xPos = -3 + 0.7f * i;
             GameObject HealthPoint = Instantiate(_healthPoint, _healthBar);
             HealthPoint.name = $"Health Point {i+1}";
-            HealthPoint.transform.localPosition = new Vector2(xPos, 1.7f);
+            HealthPoint.transform.localPosition = new Vector2(xPos, 1.5f);
         }
     }
 
