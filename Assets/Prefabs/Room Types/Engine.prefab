@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Name
-      value: Engine Variant
+      value: Engine
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.b
@@ -67,5 +67,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6974942613886172078}
   m_SourcePrefab: {fileID: 100100000, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+--- !u!1 &6296828180990621263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+  m_PrefabInstance: {fileID: 7769634787898488390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6974942613886172078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296828180990621263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Room
+  _maxHealth: 2
+  currentHealth: 0
+  _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
+  _healthBar: {fileID: 0}

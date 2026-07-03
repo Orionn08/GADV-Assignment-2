@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenuButtons : MonoBehaviour
+public class MenuButton : MonoBehaviour
 {
     [SerializeField] private GameObject _roomMenu;
     [SerializeField] private GameObject _roomMenuButton;

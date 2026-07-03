@@ -5,7 +5,7 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
     [SerializeField] private Transform _rooms;
-    [SerializeField] private Room _roomSlotPrefab;
+    [SerializeField] private Slot _roomSlotPrefab;
 
     void Start()
     {

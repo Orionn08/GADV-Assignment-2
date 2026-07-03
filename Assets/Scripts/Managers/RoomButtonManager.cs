@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RoomManager : MonoBehaviour
+public class RoomButtonManager : MonoBehaviour
 {
     [SerializeField] private GameObject _roomButtonPrefab;
     [SerializeField] private Transform _roomsDisplay;

@@ -6,7 +6,8 @@ public class PlacementManager : MonoBehaviour
     public static PlacementManager Instance;
     [SerializeField] private GameObject selectedRoomPrefab;
     private Camera cam;
-    private Room hoveredSlot;
+    private Slot hoveredSlot;
+    private Room Room;
     [SerializeField] private GameObject _roomSlot;
 
     private void Awake()
@@ -28,7 +29,7 @@ public class PlacementManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Room slot = hit.collider.GetComponent<Room>();
+            Slot slot = hit.collider.GetComponent<Slot>();
 
             if (slot != null)
             {

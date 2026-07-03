@@ -1,13 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class Room : MonoBehaviour
+public class Slot : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
-    [SerializeField] private Transform _rooms;
-
-
-    //asked ChatGPT for code and editied as i saw fit
     public void Highlight(bool state)
     {
         _highlight.SetActive(state);
