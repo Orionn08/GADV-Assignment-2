@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &315284761856818021
+--- !u!1001 &8649357287406886130
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,13 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8663011193586162960, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+      propertyPath: _roomPlaceholderPrefab
+      value: 
+      objectReference: {fileID: 712204939152078985, guid: 495dc89ca3f65aa43adf385fd1fc3c28, type: 3}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.251106
+      value: -52.98002
       objectReference: {fileID: 0}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.344349
+      value: 7.9514847
       objectReference: {fileID: 0}
     - target: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.09460688
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.g
@@ -62,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019012025180877233, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       propertyPath: m_Color.r
-      value: 0.03029561
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -70,26 +74,44 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1430746336021550555}
+      addedObject: {fileID: 6558811705043272059}
+    - targetCorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9117308211332339330}
   m_SourcePrefab: {fileID: 100100000, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
---- !u!1 &4094202660964023148 stripped
+--- !u!1 &4952036349654555899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
-  m_PrefabInstance: {fileID: 315284761856818021}
+  m_PrefabInstance: {fileID: 8649357287406886130}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1430746336021550555
+--- !u!114 &6558811705043272059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094202660964023148}
+  m_GameObject: {fileID: 4952036349654555899}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  _maxHealth: 5
+  _maxHealth: 4
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
   _healthBar: {fileID: 0}
+--- !u!114 &9117308211332339330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952036349654555899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f97f5d354bc6d442bbd90d4b886ea53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  _damage: 1
+  _cooldown: 1.5
+  _attackTimer: 0
