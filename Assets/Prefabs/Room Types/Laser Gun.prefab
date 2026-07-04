@@ -71,6 +71,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7732254348406923943}
+    - targetCorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6112449774878221655}
   m_SourcePrefab: {fileID: 100100000, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
 --- !u!1 &1377936192949100531 stripped
 GameObject:
@@ -93,3 +96,18 @@ MonoBehaviour:
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
   _healthBar: {fileID: 0}
+--- !u!114 &-6112449774878221655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377936192949100531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f97f5d354bc6d442bbd90d4b886ea53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  _damage: 2
+  _cooldown: 1.5
+  _attackTimer: 0

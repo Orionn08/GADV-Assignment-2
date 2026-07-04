@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211762067}
   m_Layer: 0
-  m_Name: Sheild Bar
+  m_Name: Shield Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -521,10 +521,10 @@ MonoBehaviour:
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
   _healthBar: {fileID: 994060350}
-  _maxSheild: 5
-  currentSheild: 0
-  _sheildPoint: {fileID: 5259185788225068721, guid: acb6476ca28abad439fa1a10b8cad7bd, type: 3}
-  _sheildBar: {fileID: 211762067}
+  _maxShield: 5
+  currentShield: 0
+  _shieldPoint: {fileID: 5259185788225068721, guid: acb6476ca28abad439fa1a10b8cad7bd, type: 3}
+  _shieldBar: {fileID: 211762067}
 --- !u!4 &493762290
 Transform:
   m_ObjectHideFlags: 0
@@ -852,9 +852,6 @@ MonoBehaviour:
   - {fileID: 712204939152078985, guid: 495dc89ca3f65aa43adf385fd1fc3c28, type: 3}
   - {fileID: 6247729428604311355, guid: a5816dcf35835e749a1e8d35baf5843c, type: 3}
   - {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
-  - {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
-  - {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
-  - {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
   _roomNames:
   - Bridge
   - Engine
@@ -863,9 +860,6 @@ MonoBehaviour:
   - Missile Launcher
   - Reactor
   - Shield Generator
-  - Shield Generator
-  - Shield Generator
-  - Shield Generator
   _roomIcons:
   - {fileID: -1411276610193787019, guid: d9f7e398e93b6004a8fa1cb86261c5ef, type: 3}
   - {fileID: -4958364401730735896, guid: 1771603aacecbbb4382315b89e10ec23, type: 3}
@@ -873,9 +867,6 @@ MonoBehaviour:
   - {fileID: -1131169511269099867, guid: a678dddaf64baf941abd394bf077c16c, type: 3}
   - {fileID: -2297236053363534818, guid: d9bee31cd6dea3b46beab91b3ab50030, type: 3}
   - {fileID: -7752581559301894005, guid: 9ccbc8c2d84d59947bf0ae4849a007fc, type: 3}
-  - {fileID: -3847426174549003344, guid: 23a3431dd7206c440bf6513eb531f45b, type: 3}
-  - {fileID: -3847426174549003344, guid: 23a3431dd7206c440bf6513eb531f45b, type: 3}
-  - {fileID: -3847426174549003344, guid: 23a3431dd7206c440bf6513eb531f45b, type: 3}
   - {fileID: -3847426174549003344, guid: 23a3431dd7206c440bf6513eb531f45b, type: 3}
 --- !u!4 &697482304
 Transform:
@@ -929,7 +920,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 20}
+  m_SizeDelta: {x: 73, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &839987961
 MonoBehaviour:
@@ -1137,7 +1128,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -6, z: 0}
-  m_LocalScale: {x: 100, y: 10, z: 0}
+  m_LocalScale: {x: 75, y: 10, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 846517542}
@@ -1274,7 +1265,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 2, y: -11}
-  m_SizeDelta: {x: 100, y: 20}
+  m_SizeDelta: {x: 73, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1915240616
 GameObject:
