@@ -108,6 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f97f5d354bc6d442bbd90d4b886ea53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  _damage: 2
-  _cooldown: 2
+  damage: 2
+  cooldown: 3
   _attackTimer: 0

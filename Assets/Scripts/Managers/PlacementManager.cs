@@ -1,19 +1,18 @@
+//this script manages the placement of rooms and calls respective functions from room.cs
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlacementManager : MonoBehaviour
 {
-    public static PlacementManager Instance;
-    [SerializeField] private GameObject selectedRoomPrefab;
+    [SerializeField] private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
-    private Camera cam;
-    private Slot hoveredSlot;
-    private Room Room;
+    private Camera _cam;
+    private Slot _hoveredSlot;
 
     private void Awake()
     {
-        Instance = this;
-        cam = Camera.main;
+        _cam = Camera.main;
     }
 
     void Update()
@@ -24,7 +23,7 @@ public class PlacementManager : MonoBehaviour
 
     void OnHover()
     {
-        Vector2 mousePos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 mousePos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
 
         if (hit.collider != null)
@@ -33,43 +32,43 @@ public class PlacementManager : MonoBehaviour
 
             if (slot != null)
             {
-                if (hoveredSlot != slot)
+                if (_hoveredSlot != slot)
                 {
-                    if (hoveredSlot != null)
-                        hoveredSlot.Highlight(false);
+                    if (_hoveredSlot != null)
+                        _hoveredSlot.Highlight(false);
 
-                    hoveredSlot = slot;
-                    hoveredSlot.Highlight(true);
+                    _hoveredSlot = slot;
+                    _hoveredSlot.Highlight(true);
                 }
                 return;
             }
         }
-        if (hoveredSlot != null)
+        if (_hoveredSlot != null)
         {
-            hoveredSlot.Highlight(false);
-            hoveredSlot = null;
+            _hoveredSlot.Highlight(false);
+            _hoveredSlot = null;
         }
     }
 
     void OnClick()
     {
-        if (hoveredSlot == null) return;
-        if (selectedRoomPrefab == null) return;
+        if (_hoveredSlot == null) return;
+        if (_selectedRoomPrefab == null) return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            hoveredSlot.PlaceRoom(selectedRoomPrefab);
+            _hoveredSlot.PlaceRoom(_selectedRoomPrefab);
         }
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            hoveredSlot.DeleteRoom(_roomSlot);
+            _hoveredSlot.DeleteRoom(_roomSlot);
         }
     }
 
     public void SetSelectedRoom(GameObject roomPrefab)
     {
-        selectedRoomPrefab = roomPrefab;
+        _selectedRoomPrefab = roomPrefab;
     }
 }
 

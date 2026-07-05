@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211762067}
   m_Layer: 0
-  m_Name: Sheild Bar
+  m_Name: Shield Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -6}
-  m_SizeDelta: {x: 10, y: 6}
+  m_SizeDelta: {x: 73, y: 6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &341156307
 MonoBehaviour:

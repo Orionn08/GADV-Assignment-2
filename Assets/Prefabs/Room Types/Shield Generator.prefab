@@ -116,5 +116,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c4b066543fdec499a26ab89b5e9248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shield
-  _cooldown: 4
+  cooldown: 3
   _shieldTimer: 0

@@ -1,24 +1,26 @@
+//this script creates the room buttons using a prefab
+
 using UnityEngine;
 
 public class RoomButtonManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _roomButtonPrefab;
-    [SerializeField] private Transform _roomsDisplay;
+    [SerializeField] private GameObject _roomButtonPrefab; //the structure of the room buttons
+    [SerializeField] private Transform _roomsDisplay; //parent object of the buttons
     [SerializeField] private GameObject[] _roomPrefabs;
     [SerializeField] private string[] _roomNames;
     [SerializeField] private Sprite[] _roomIcons;
+    //lists to store the information of the different rooms so they can be instantiated properly
 
     void Start()
     {
-        for (int i = 0; i < _roomPrefabs.Length; i++)
+        for (int i = 0; i < _roomPrefabs.Length; i++) //creates x amount of buttons, according to the length of the lists above
         {
-            GameObject buttonObj = Instantiate(_roomButtonPrefab, _roomsDisplay);
-            buttonObj.name = _roomNames[i] + " Button";
+            GameObject buttonObj = Instantiate(_roomButtonPrefab, _roomsDisplay); //creates room button under the _roomsDisplay game object
+            buttonObj.name = _roomNames[i] + " Button"; //gives the room button a name according to the room it represents
 
-            RoomButton button = buttonObj.GetComponent<RoomButton>();
-            button.Setup(_roomPrefabs[i], _roomIcons[i], _roomNames[i]);
+            RoomButton button = buttonObj.GetComponent<RoomButton>(); 
+            button.Setup(_roomPrefabs[i], _roomIcons[i], _roomNames[i]); //calls the function in RoomButton.cs to set up the button
         }
     }
 } 
-
 //used chat gpt to help fix the script
