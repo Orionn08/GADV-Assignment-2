@@ -1,4 +1,4 @@
-//this script manages the placement of rooms and calls respective functions from room.cs
+//this script manages the placement of rooms and calls respective functions from Slot.cs
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +8,7 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
     private Camera _cam;
-    private Slot _hoveredSlot;
+    private Slot _hoveredSlot; //refers to a single room in the ship
 
     private void Awake()
     {
@@ -23,22 +23,23 @@ public class PlacementManager : MonoBehaviour
 
     void OnHover()
     {
-        Vector2 mousePos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 mousePos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
+        //coverts pixels into world coordinates the starting point of the raycast
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
 
-        if (hit.collider != null)
+        if (hit.collider != null) //checks if anything was hit
         {
-            Slot slot = hit.collider.GetComponent<Slot>();
+            Slot slot = hit.collider.GetComponent<Slot>(); //checks if the object has the slot.cs script attached
 
             if (slot != null)
             {
-                if (_hoveredSlot != slot)
+                if (_hoveredSlot != slot) //checks if the mouse is on a new slot
                 {
                     if (_hoveredSlot != null)
-                        _hoveredSlot.Highlight(false);
+                        _hoveredSlot.Highlight(false); //sets highlight to inactive for previous slot
 
-                    _hoveredSlot = slot;
-                    _hoveredSlot.Highlight(true);
+                    _hoveredSlot = slot;  //stores new slot
+                    _hoveredSlot.Highlight(true); //sets highlight to active
                 }
                 return;
             }
@@ -53,20 +54,20 @@ public class PlacementManager : MonoBehaviour
     void OnClick()
     {
         if (_hoveredSlot == null) return;
-        if (_selectedRoomPrefab == null) return;
+        if (_selectedRoomPrefab == null) return; //if either variable is null then the function doesn't run to prevent errors
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            _hoveredSlot.PlaceRoom(_selectedRoomPrefab);
+            _hoveredSlot.PlaceRoom(_selectedRoomPrefab); //calls the function for placing a room in Slot.cs
         }
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            _hoveredSlot.DeleteRoom(_roomSlot);
+            _hoveredSlot.DeleteRoom(_roomSlot); //calls the function for deleting a room in Slot.cs
         }
     }
 
-    public void SetSelectedRoom(GameObject roomPrefab)
+    public void SetSelectedRoom(GameObject roomPrefab) //is called by RoomButton.cs
     {
         _selectedRoomPrefab = roomPrefab;
     }

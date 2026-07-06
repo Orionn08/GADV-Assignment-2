@@ -30,7 +30,7 @@ public class Ship : MonoBehaviour
             HealthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
         }
 
-        currentShield = _maxShield; 
+        currentShield = _maxShield;
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
         {
             float xPos = -36.4f + 2.1f * i; //determines the x position of the shield point

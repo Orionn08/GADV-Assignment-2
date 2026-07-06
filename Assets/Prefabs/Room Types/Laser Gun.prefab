@@ -95,7 +95,7 @@ MonoBehaviour:
   _maxHealth: 8
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
-  _healthBar: {fileID: 0}
+  _healthBar: {fileID: 4820219278385259547}
 --- !u!114 &-3006635754789521265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +111,8 @@ MonoBehaviour:
   damage: 2
   cooldown: 3
   _attackTimer: 0
+--- !u!4 &4820219278385259547 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7875151142226738145, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+  m_PrefabInstance: {fileID: 3435951676703055866}
+  m_PrefabAsset: {fileID: 0}

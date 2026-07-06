@@ -76,6 +76,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -1780642654804161911}
   m_SourcePrefab: {fileID: 100100000, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+--- !u!4 &526875662648143059 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7875151142226738145, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
+  m_PrefabInstance: {fileID: 7639792318804875058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6247729428604311355 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
@@ -96,4 +101,4 @@ MonoBehaviour:
   _maxHealth: 9
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
-  _healthBar: {fileID: 0}
+  _healthBar: {fileID: 526875662648143059}

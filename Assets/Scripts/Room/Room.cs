@@ -14,7 +14,6 @@ public class Room : MonoBehaviour
     void Awake()
     {
         currentHealth = _maxHealth;
-        _healthBar = transform.Find("Health Bar"); 
         //finds the Health Bar object so that it can be the parent of the health points objects
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
