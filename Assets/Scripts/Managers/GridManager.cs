@@ -22,9 +22,10 @@ public class GridManager : MonoBehaviour
                 float xPos = x * 7f;
                 float yPos = y * 4f; //ensures that each room slot appears right next to each other and also doesn't overlap
 
-                var RoomSlot = Instantiate(_roomSlotPrefab, new Vector2(xPos,yPos), Quaternion.identity, _rooms);
+                var roomSlot = Instantiate(_roomSlotPrefab, _rooms);
+                roomSlot.transform.localPosition = new Vector2(xPos, yPos);
                 //creates each room slot at its respective positions under the _rooms game object
-                RoomSlot.name = $"Room {RoomSlot.transform.position.x} {RoomSlot.transform.position.y}";
+                roomSlot.name = $"Room {roomSlot.transform.position.x} {roomSlot.transform.position.y}";
                 //gives each room slot a name according to its coordinates
             }
         }

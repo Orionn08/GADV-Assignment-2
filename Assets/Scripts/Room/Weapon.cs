@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
 {   
     public float damage; //amount of damage that will be dealt, can be changed in inspector
     public float cooldown; //sets how often the weapon can fire
-    [SerializeField] private float _attackTimer; //determines when the weapon can fire
+    private float _attackTimer; //determines when the weapon can fire
 
     void Start()
     {

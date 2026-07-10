@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+    private GameObject _ship;
+    
     [SerializeField] private int _maxHealth; //can be changed in inspector
     public float currentHealth;
     [SerializeField] private GameObject _healthPoint;
@@ -19,24 +21,29 @@ public class Ship : MonoBehaviour
 
     void Awake()
     {
+        _ship = gameObject;
+
         currentHealth = _maxHealth;
+        currentShield = _maxShield;
+
+
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
-            float xPos = -36.4f + 2.1f * i; //determines the x position of the health point
+            float xPos = 2.1f * i; //determines the x position of the health point
             GameObject HealthPoint = Instantiate(_healthPoint, _healthBar); //creates health point under the _healthBar game object
             HealthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
-            HealthPoint.transform.localPosition = new Vector2(xPos, 12.5f); 
+            HealthPoint.transform.localPosition = new Vector2(xPos, 0.5f); 
             //ensures that each health point is next to each other but not overlap
             HealthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
         }
-
-        currentShield = _maxShield;
+        
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
         {
-            float xPos = -36.4f + 2.1f * i; //determines the x position of the shield point
+            
+            float xPos = 2.1f * i; //determines the x position of the shield point
             GameObject ShieldPoint = Instantiate(_shieldPoint, _shieldBar); //creates shield point under the _shieldBar game object
             ShieldPoint.name = $"Sheild Point {i+1}"; //gives the shield point a name according to the order it was spawned
-            ShieldPoint.transform.localPosition = new Vector2(xPos, 10);
+            ShieldPoint.transform.localPosition = new Vector2(xPos, 0.5f);
             //ensures that each shield point is next to each other but not overlap
             ShieldPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
         }

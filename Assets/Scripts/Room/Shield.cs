@@ -6,7 +6,7 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {   
     public float cooldown; //sets how often shield is gained, can be changed in inspector
-    [SerializeField] private float _shieldTimer; //determines when shield can be gained
+    private float _shieldTimer; //determines when shield can be gained
 
     void Start()
     {
