@@ -4,7 +4,8 @@
 using UnityEngine;
 
 public class Room : MonoBehaviour
-{
+{   
+    [HideInInspector] public GameObject prefab;
     [SerializeField] private int _maxHealth; //can be changed in inspector
     public float currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
     [SerializeField] private GameObject _healthPoint;

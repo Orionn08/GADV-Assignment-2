@@ -16,6 +16,17 @@ public class Slot : MonoBehaviour
         //gives the spawned room a name of the selected room plus its coordinates
         spawnedRoom.transform.parent = gameObject.transform.parent;
         //ensures the parent of the spawned room is the same as the current room
+        Room room = spawnedRoom.GetComponent<Room>();
+
+    if(room != null)
+    {
+        room.prefab = selectedRoom;
+        Debug.Log("Prefab saved: " + room.prefab.name);
+    }
+    else
+    {
+        Debug.LogError("Spawned room does not have Room.cs attached!");
+    }
         Destroy(gameObject); //deletes this current room
     }
 

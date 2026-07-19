@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class PlayerShip
+{
+    public List<RoomData> rooms = new List<RoomData>();
+
+    public void SaveShip(Transform roomsParent)
+    {
+        rooms.Clear();
+
+        foreach(Transform room in roomsParent)
+        {
+            RoomData data = new RoomData();
+
+            data.prefab = room.GetComponent<Room>().prefab;
+            Debug.Log(room.GetComponent<Room>().prefab);
+            data.position = room.localPosition;
+
+            rooms.Add(data);
+        }
+    }
+}
+
+
+[System.Serializable]
+public class RoomData
+{
+    public GameObject prefab;
+    public Vector3 position;
+}
