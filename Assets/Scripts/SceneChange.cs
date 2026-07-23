@@ -12,3 +12,4 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 }
+//made with the help of Chat GPT and edited

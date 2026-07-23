@@ -37,7 +37,6 @@ public class RoomButton : MonoBehaviour
 
     private void OnClick()
     {
-        Debug.Log("Selected: " + roomName);
         _placementManager.SetSelectedRoom(roomPrefab); 
         //sets the prefab linked to the button that was click to be selected room
     }

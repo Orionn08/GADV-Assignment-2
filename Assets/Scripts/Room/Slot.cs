@@ -21,7 +21,6 @@ public class Slot : MonoBehaviour
     if(room != null)
     {
         room.prefab = selectedRoom;
-        Debug.Log("Prefab saved: " + room.prefab.name);
     }
     else
     {

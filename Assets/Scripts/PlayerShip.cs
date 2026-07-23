@@ -12,12 +12,12 @@ public class PlayerShip
 
         foreach(Transform room in roomsParent)
         {
+            Room roomScript = room.GetComponent<Room>();
+            if (roomScript == null)
+                continue;
             RoomData data = new RoomData();
-
             data.prefab = room.GetComponent<Room>().prefab;
-            Debug.Log(room.GetComponent<Room>().prefab);
             data.position = room.localPosition;
-
             rooms.Add(data);
         }
     }
@@ -30,3 +30,4 @@ public class RoomData
     public GameObject prefab;
     public Vector3 position;
 }
+//made with the help of Chat GPT

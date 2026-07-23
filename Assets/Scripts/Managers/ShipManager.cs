@@ -6,17 +6,9 @@ public class ShipManager : MonoBehaviour
 
     public PlayerShip playerShip = new PlayerShip();
 
-
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 }
+//made with the help of Chat GPT
