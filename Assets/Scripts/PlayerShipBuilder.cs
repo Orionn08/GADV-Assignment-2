@@ -17,6 +17,7 @@ public class PlayerShipBuilder : MonoBehaviour
         {
             GameObject newRoom = Instantiate(room.prefab, roomsParent);
             newRoom.transform.localPosition = room.position;
+            newRoom.name = room.name;
             RemoveOccupiedSlot(room.position);
         }
     }

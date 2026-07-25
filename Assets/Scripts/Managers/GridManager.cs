@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
                 var roomSlot = Instantiate(_roomSlotPrefab, _rooms);
                 roomSlot.transform.localPosition = new Vector2(xPos, yPos);
                 //creates each room slot at its respective positions under the _rooms game object
-                roomSlot.name = $"Room {roomSlot.transform.position.x} {roomSlot.transform.position.y}";
+                roomSlot.name = $"Room ({roomSlot.transform.position.x} {roomSlot.transform.position.y})";
                 //gives each room slot a name according to its coordinates
             }
         }

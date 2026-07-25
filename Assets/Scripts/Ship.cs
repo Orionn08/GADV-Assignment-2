@@ -4,21 +4,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System;
 
 public class Ship : MonoBehaviour
 {
     private GameObject _ship;
     
+    private List<GameObject> healthPoints = new List<GameObject>();
     [SerializeField] private int _maxHealth; //can be changed in inspector
-    public float currentHealth;
+    public int currentHealth;
     [SerializeField] private GameObject _healthPoint;
     [SerializeField] private Transform _healthBar;
     //sets varibles for ship's health
 
     private List<GameObject> shieldPoints = new List<GameObject>();
     [SerializeField] private int _maxShield; //can be changed in inspector
-    public float currentShield;
+    public int currentShield;
     [SerializeField] private GameObject _shieldPoint;
     [SerializeField] private Transform _shieldBar;
     //sets varibles for ship's shield
@@ -31,7 +31,8 @@ public class Ship : MonoBehaviour
         _ship = gameObject;
         currentScene = SceneManager.GetActiveScene();
 
-        currentHealth = currentShield = 0;
+        currentHealth = _maxHealth; 
+        currentShield = 0;
 
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
@@ -42,6 +43,7 @@ public class Ship : MonoBehaviour
             HealthPoint.transform.localPosition = new Vector2(xPos, 0.5f); 
             //ensures that each health point is next to each other but not overlap
             HealthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
+            healthPoints.Add(HealthPoint);
         }
 
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
@@ -68,34 +70,78 @@ public class Ship : MonoBehaviour
 
     public void DamageTaken(int damage)
     {
-        currentHealth = currentHealth - damage;
+        if (currentShield > 0)
+        {
+            SheildLost(damage);
+        }
+        else
+        {
+            HealthLost(damage);
+        }
     }
 
-    public void SheildGain(int shield)
+    public void SheildGain(int shieldGain)
     {
         if (currentShield == _maxShield) return;    
-        currentShield = currentShield + shield;
-    
-        for(int i = 0; i < shieldPoints.Count; i++)
+        for (int i = 0; i <= shieldGain -1; i++)
         {
-            GameObject shieldPoint = shieldPoints[i];
-            if (shieldPoint.name.Contains("Empty"))
-            {   
-                GameObject newShieldPoint = Instantiate(_shieldPoint, _shieldBar); //creates shield point under the _shieldBar game object
-                newShieldPoint.name = $"Sheild Point {i+1}";
-                shieldPoints[i] = newShieldPoint;
-                newShieldPoint.transform.localPosition = shieldPoint.transform.localPosition;
-                newShieldPoint.transform.localScale = new Vector2(3, 3);
-                Destroy(shieldPoint);
-                break;
+            currentShield++;
+            for(int j = 0; j <= shieldPoints.Count -1; j++)
+            {
+                GameObject shieldPoint = shieldPoints[j];
+                if (shieldPoint.name.Contains("Empty"))
+                {
+                    GameObject newShieldPoint = Instantiate(_shieldPoint, _shieldBar); //creates shield point under the _shieldBar game object
+                    newShieldPoint.name = $"Sheild Point {j+1}";
+                    shieldPoints[j] = newShieldPoint;
+                    newShieldPoint.transform.localPosition = shieldPoint.transform.localPosition;
+                    newShieldPoint.transform.localScale = new Vector2(3, 3);
+                    Destroy(shieldPoint);
+                    break;
+                }
             }
-        }
+        }        
     } //edited using Chat GPT 
 
-    public void SheildLost(int shield)
+    public void SheildLost(int shieldLost)
     {
-        if (currentShield == 0) return;
-        currentShield = currentShield - shield;
+        int startingShield = currentShield;
+        for(int i = 0; i <= shieldLost -1; i++)
+        {
+            if (currentShield == 0)
+            {
+                HealthLost(shieldLost -i);
+                return;
+            }
+            GameObject shieldPoint = shieldPoints[startingShield -i -1];
+            GameObject emptyPoint = Instantiate(_emptyPoint, _shieldBar); //creates shield point under the _shieldBar game object
+            emptyPoint.name = $"Sheild Point {startingShield - i} (Empty)";
+            shieldPoints[startingShield -i -1] = emptyPoint;
+            emptyPoint.transform.localPosition = shieldPoint.transform.localPosition;
+            emptyPoint.transform.localScale = new Vector2(3, 3);
+            Destroy(shieldPoint);
+            currentShield--;
+        }
     }
-    //these are shell functions that will be edited accordingly and implemented later
+
+    public void HealthLost(int healthLost)
+    {
+        Debug.Log("HealthLost was called");
+        int startingHealth = currentHealth;
+        for(int i = 0; i <= healthLost -1; i++)
+        {
+            if (currentHealth == 0)
+            {
+                return;
+            }
+            GameObject healthPoint = healthPoints[startingHealth -i -1];
+            GameObject emptyPoint = Instantiate(_emptyPoint, _healthBar); //creates shield point under the _shieldBar game object
+            emptyPoint.name = $"Health Point {startingHealth - i} (Empty)";
+            healthPoints[startingHealth -i -1] = emptyPoint;
+            emptyPoint.transform.localPosition = healthPoint.transform.localPosition;
+            emptyPoint.transform.localScale = new Vector2(3, 3);
+            Destroy(healthPoint);
+            currentHealth--;
+        }
+    }
 }

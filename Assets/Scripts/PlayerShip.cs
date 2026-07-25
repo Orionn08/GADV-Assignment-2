@@ -18,6 +18,7 @@ public class PlayerShip
             RoomData data = new RoomData();
             data.prefab = room.GetComponent<Room>().prefab;
             data.position = room.localPosition;
+            data.name = room.name;
             rooms.Add(data);
         }
     }
@@ -29,5 +30,6 @@ public class RoomData
 {
     public GameObject prefab;
     public Vector3 position;
+    public string name;
 }
 //made with the help of Chat GPT

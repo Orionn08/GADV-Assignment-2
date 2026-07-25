@@ -12,7 +12,7 @@ public class Slot : MonoBehaviour
     {
         var spawnedRoom = Instantiate(selectedRoom, transform.position, Quaternion.identity); 
         //spawns selected room at the same position as the room which this script is attached to
-        spawnedRoom.name = $"Room {selectedRoom.name} {transform.position.x} {transform.position.y}";
+        spawnedRoom.name = $"{selectedRoom.name} ({transform.position.x} {transform.position.y})";
         //gives the spawned room a name of the selected room plus its coordinates
         spawnedRoom.transform.parent = gameObject.transform.parent;
         //ensures the parent of the spawned room is the same as the current room
@@ -33,7 +33,7 @@ public class Slot : MonoBehaviour
     {
         var spawnedRoom = Instantiate(roomSlot, transform.position, Quaternion.identity);
         //spawns the room slot prefab, indicating the room is now empty
-        spawnedRoom.name = $"Room {transform.position.x} {transform.position.y}"; 
+        spawnedRoom.name = $"Room ({transform.position.x} {transform.position.y})"; 
         //keeps the same naming convention of naming by the coordinates of the room
         spawnedRoom.transform.parent = gameObject.transform.parent; 
         //ensures the parent of the spawned room is the same as the current room
