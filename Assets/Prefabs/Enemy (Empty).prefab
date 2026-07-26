@@ -421,11 +421,10 @@ MonoBehaviour:
   _maxShield: 4
   currentHealth: 0
   currentShield: 0
-  _healthPoint: {fileID: 9036581672520344044, guid: 8313438623dfd7d47858bc606bc5dc86, type: 3}
-  _shieldPoint: {fileID: 8440264691947675646, guid: 6ba0da71e0521f047933119f27cb3891, type: 3}
-  _emptyPoint: {fileID: 4574856542013126205, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
+  _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _shieldBar: {fileID: 2211442081991187069}
   _healthBar: {fileID: 4054593507997398149}
+  _opposingShip: {fileID: 0}
 --- !u!114 &8280528303825850551
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class Shield : MonoBehaviour
         _shieldTimer -= Time.deltaTime;
         if(_shieldTimer <= 0)
         {
-            _ship.SheildGain(1);
+            _ship.ShieldGain(1);
             _shieldTimer = cooldown;
         }
     }

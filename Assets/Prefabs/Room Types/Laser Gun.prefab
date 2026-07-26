@@ -95,7 +95,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   _maxHealth: 8
   currentHealth: 0
-  _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
+  _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _healthBar: {fileID: 4820219278385259547}
 --- !u!114 &-3006635754789521265
 MonoBehaviour:
