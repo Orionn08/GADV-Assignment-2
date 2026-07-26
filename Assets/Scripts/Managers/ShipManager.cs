@@ -4,7 +4,7 @@ public class ShipManager : MonoBehaviour
 {
     public static ShipManager Instance;
 
-    public PlayerShip playerShip = new PlayerShip();
+    public SavingPlayerShip playerShip = new SavingPlayerShip();
 
     private void Awake()
     {

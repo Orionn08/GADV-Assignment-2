@@ -4,27 +4,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Ship : MonoBehaviour
 {
     private GameObject _ship;
     
     private List<GameObject> healthPoints = new List<GameObject>();
-    [SerializeField] private int _maxHealth; //can be changed in inspector
-    public int currentHealth;
-    [SerializeField] private GameObject _healthPoint;
-    [SerializeField] private Transform _healthBar;
-    //sets varibles for ship's health
-
-    private List<GameObject> shieldPoints = new List<GameObject>();
-    [SerializeField] private int _maxShield; //can be changed in inspector
-    public int currentShield;
-    [SerializeField] private GameObject _shieldPoint;
-    [SerializeField] private Transform _shieldBar;
-    //sets varibles for ship's shield
-
-    [SerializeField] private GameObject _emptyPoint;
+    private List<GameObject> sheildPoints = new List<GameObject>();
+    [SerializeField] private int _maxHealth, _maxShield; //can be changed in inspector
+    [HideInInspector] public int currentHealth, currentShield;
+    [SerializeField] private GameObject _healthPoint, _shieldPoint, _emptyPoint;
+    [SerializeField] private Transform _shieldBar, _healthBar;
+    //sets varibles for ship's health and shield
     private Scene currentScene;
+
+    [SerializeField] private Ship _opposingShip;
+
+    public Ship OpposingShip => _opposingShip;
+
+    public void SetOpposingShip(Ship ship)
+    {
+        _opposingShip = ship;
+    }
 
     void Awake()
     {
@@ -34,6 +36,16 @@ public class Ship : MonoBehaviour
         currentHealth = _maxHealth; 
         currentShield = 0;
 
+        if (_maxHealth <= 0)
+        {
+            Debug.LogError($"{name}: Max health has not been set or is negative.");
+            return;
+        }
+        if (_maxShield <= 0)
+        {
+            Debug.LogError($"{name}: Max shield has not been set or is negative.");
+            return;
+        }
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
@@ -64,43 +76,37 @@ public class Ship : MonoBehaviour
             ShieldPoint.transform.localPosition = new Vector2(xPos, 0.5f);
             //ensures that each shield point is next to each other but not overlap
             ShieldPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
-            shieldPoints.Add(ShieldPoint);
+            sheildPoints.Add(ShieldPoint);
         }
     }
 
     public void DamageTaken(int damage)
     {
-        if (currentShield > 0)
-        {
-            SheildLost(damage);
-        }
-        else
-        {
-            HealthLost(damage);
-        }
+        if (currentShield > 0) SheildLost(damage);
+        else HealthLost(damage);
     }
 
     public void SheildGain(int shieldGain)
     {
-        if (currentShield == _maxShield) return;    
+        if (currentShield == _maxShield) return;  
         for (int i = 0; i <= shieldGain -1; i++)
         {
             currentShield++;
-            for(int j = 0; j <= shieldPoints.Count -1; j++)
+            for(int j = 0; j <= sheildPoints.Count -1; j++)
             {
-                GameObject shieldPoint = shieldPoints[j];
-                if (shieldPoint.name.Contains("Empty"))
+                GameObject sheildPoint = sheildPoints[j];
+                if (sheildPoint.name.Contains("Empty"))
                 {
-                    GameObject newShieldPoint = Instantiate(_shieldPoint, _shieldBar); //creates shield point under the _shieldBar game object
-                    newShieldPoint.name = $"Sheild Point {j+1}";
-                    shieldPoints[j] = newShieldPoint;
-                    newShieldPoint.transform.localPosition = shieldPoint.transform.localPosition;
-                    newShieldPoint.transform.localScale = new Vector2(3, 3);
-                    Destroy(shieldPoint);
+                    GameObject newSheildPoint = Instantiate(_shieldPoint, _shieldBar); //creates shield point under the _shieldBar game object
+                    newSheildPoint.name = $"Sheild Point {j+1}";
+                    sheildPoints[j] = newSheildPoint;
+                    newSheildPoint.transform.localPosition = sheildPoint.transform.localPosition;
+                    newSheildPoint.transform.localScale = new Vector2(3, 3);
+                    Destroy(sheildPoint);
                     break;
                 }
             }
-        }        
+        } 
     } //edited using Chat GPT 
 
     public void SheildLost(int shieldLost)
@@ -113,10 +119,10 @@ public class Ship : MonoBehaviour
                 HealthLost(shieldLost -i);
                 return;
             }
-            GameObject shieldPoint = shieldPoints[startingShield -i -1];
+            GameObject shieldPoint = sheildPoints[startingShield -i -1];
             GameObject emptyPoint = Instantiate(_emptyPoint, _shieldBar); //creates shield point under the _shieldBar game object
             emptyPoint.name = $"Sheild Point {startingShield - i} (Empty)";
-            shieldPoints[startingShield -i -1] = emptyPoint;
+            sheildPoints[startingShield -i -1] = emptyPoint;
             emptyPoint.transform.localPosition = shieldPoint.transform.localPosition;
             emptyPoint.transform.localScale = new Vector2(3, 3);
             Destroy(shieldPoint);
@@ -126,14 +132,11 @@ public class Ship : MonoBehaviour
 
     public void HealthLost(int healthLost)
     {
-        Debug.Log("HealthLost was called");
         int startingHealth = currentHealth;
         for(int i = 0; i <= healthLost -1; i++)
         {
-            if (currentHealth == 0)
-            {
-                return;
-            }
+            if (currentHealth == 0) return;
+            
             GameObject healthPoint = healthPoints[startingHealth -i -1];
             GameObject emptyPoint = Instantiate(_emptyPoint, _healthBar); //creates shield point under the _shieldBar game object
             emptyPoint.name = $"Health Point {startingHealth - i} (Empty)";
@@ -144,4 +147,5 @@ public class Ship : MonoBehaviour
             currentHealth--;
         }
     }
+    //edited with the help of Chat GPT
 }

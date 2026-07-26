@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerShip
+public class SavingPlayerShip
 {
     public List<RoomData> rooms = new List<RoomData>();
 
@@ -23,7 +23,6 @@ public class PlayerShip
         }
     }
 }
-
 
 [System.Serializable]
 public class RoomData

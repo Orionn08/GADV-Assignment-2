@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6143481658744695015}
   m_Layer: 0
-  m_Name: Shield Point
+  m_Name: Sheild Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

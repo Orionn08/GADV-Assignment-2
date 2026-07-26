@@ -24,7 +24,7 @@ public class Slot : MonoBehaviour
     }
     else
     {
-        Debug.LogError("Spawned room does not have Room.cs attached!");
+        Debug.LogError($"{name}: Spawned room does not have Room.cs attached");
     }
         Destroy(gameObject); //deletes this current room
     }
@@ -38,5 +38,5 @@ public class Slot : MonoBehaviour
         spawnedRoom.transform.parent = gameObject.transform.parent; 
         //ensures the parent of the spawned room is the same as the current room
         Destroy(gameObject); //deletes this current room
-    }    
+    }
 }

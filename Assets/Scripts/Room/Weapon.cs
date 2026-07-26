@@ -5,31 +5,50 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Weapon : MonoBehaviour
-{   
-    private Ship Ship;
-    public int damage; //amount of damage that will be dealt, can be changed in inspector
-    public float cooldown; //sets how often the weapon can fire
-    private float _attackTimer; //determines when the weapon can fire
+{
+    private Ship _ship;
+
+    public int damage; // Amount of damage the weapon deals
+    public float cooldown; // Time between attacks
+    private float _attackTimer;
     private Scene currentScene;
 
-    void Start()
+    private void Start()
     {
-        Ship = GetComponentInParent<Ship>();
         currentScene = SceneManager.GetActiveScene();
-        _attackTimer = cooldown + 0.25f;
-    }  //sets the weapon to fire after x amount of seconds (according to _cooldown) when the game object is first instantiated
-    //also ensures that the weapon doesn't immediately fire upon being instantiated
 
-    void Update()
+        if (currentScene.name != "Combat")
+            return;
+
+        _ship = GetComponentInParent<Ship>();
+
+        if (_ship == null)
+        {
+            Debug.LogError($"{name}: No Ship component found in parent objects.");
+            return;
+        }
+
+        if (_ship.OpposingShip == null)
+        {
+            Debug.LogError($"{name}: Opposing ship has not been assigned.");
+            return;
+        }
+
+        _attackTimer = cooldown + 0.25f;
+    }
+
+    private void Update()
     {
-        if(currentScene.name != "Combat")
-        return;
+        if (currentScene.name != "Combat") return;
+        if(cooldown <= 0) return;
+        if (_ship == null || _ship.OpposingShip == null) return;
 
         _attackTimer -= Time.deltaTime;
-        if(_attackTimer <= 0)
+
+        if (_attackTimer <= 0)
         {
             _attackTimer = cooldown;
-            Ship.DamageTaken(damage);
+            _ship.OpposingShip.DamageTaken(damage);
         }
     }
 }

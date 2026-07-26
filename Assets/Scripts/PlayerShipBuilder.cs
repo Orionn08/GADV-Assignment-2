@@ -2,20 +2,25 @@ using UnityEngine;
 
 public class PlayerShipBuilder : MonoBehaviour
 {
-    [SerializeField] private Transform roomsParent;
+    [SerializeField] private Transform _roomsParent;
 
     private void Start()
     {
+        if (_roomsParent == null)
+        {
+            Debug.LogError($"{name}: Rooms' parent has not been set.");
+            return;
+        }
         BuildShip();
     }
 
     private void BuildShip()
     {
-        PlayerShip ship = ShipManager.Instance.playerShip;
+        SavingPlayerShip ship = ShipManager.Instance.playerShip;
 
         foreach(RoomData room in ship.rooms)
         {
-            GameObject newRoom = Instantiate(room.prefab, roomsParent);
+            GameObject newRoom = Instantiate(room.prefab, _roomsParent);
             newRoom.transform.localPosition = room.position;
             newRoom.name = room.name;
             RemoveOccupiedSlot(room.position);
@@ -24,7 +29,7 @@ public class PlayerShipBuilder : MonoBehaviour
 
     private void RemoveOccupiedSlot(Vector3 position)
     {
-        foreach(Transform slot in roomsParent)
+        foreach(Transform slot in _roomsParent)
         {
             if(slot.localPosition == position && slot.GetComponent<Slot>() != null)
             {

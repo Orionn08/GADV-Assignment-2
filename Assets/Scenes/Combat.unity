@@ -296,7 +296,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5a43417df8813448edef40fb3e39b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShipBuilder
-  roomsParent: {fileID: 414105003}
+  _roomsParent: {fileID: 414105003}
+--- !u!114 &414105005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6498754261432468766, guid: 5d9a04520f3c2b540844b306922922cf, type: 3}
+  m_PrefabInstance: {fileID: 414105001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414105002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818ffcb049201314b9d9126f15a3a654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship
 --- !u!1 &979003787
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +506,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf7442683fce0147afa113dbe8e0a27, type: 3}
+--- !u!114 &1237006879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4543293789225521281, guid: 1bf7442683fce0147afa113dbe8e0a27, type: 3}
+  m_PrefabInstance: {fileID: 1207519105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818ffcb049201314b9d9126f15a3a654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ship
+--- !u!1 &1491480175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491480176}
+  - component: {fileID: 1491480177}
+  m_Layer: 0
+  m_Name: Combat Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1491480176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491480175}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -82.53587, y: 31.67692, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491480177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491480175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d899de80e0feb6448893ff693ba395a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatManager
+  playerShip: {fileID: 414105005}
+  enemyShip: {fileID: 1237006879}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -503,3 +571,4 @@ SceneRoots:
   - {fileID: 210825877}
   - {fileID: 414105001}
   - {fileID: 1207519105}
+  - {fileID: 1491480176}

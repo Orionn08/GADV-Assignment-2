@@ -7,13 +7,18 @@ public class Room : MonoBehaviour
 {   
     [HideInInspector] public GameObject prefab;
     [SerializeField] private int _maxHealth; //can be changed in inspector
-    public float currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
+    [HideInInspector] public float currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
     [SerializeField] private GameObject _healthPoint;
     [SerializeField] private Transform _healthBar;
     //sets varibles for room's health
 
     void Awake()
     {
+        if (_maxHealth <= 0)
+        {
+            Debug.LogError($"{name}: Max health has not been set or is negative.");
+            return;
+        }
         currentHealth = _maxHealth;
         //finds the Health Bar object so that it can be the parent of the health points objects
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
+  prefab: {fileID: 0}
   _maxHealth: 4
   currentHealth: 0
   _healthPoint: {fileID: 8982159625318065731, guid: e84e992a0e5244745ab3c22dba575ca3, type: 3}
@@ -118,5 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   damage: 1
-  cooldown: 1
-  _attackTimer: 0
+  cooldown: 2

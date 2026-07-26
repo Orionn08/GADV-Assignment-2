@@ -13,6 +13,21 @@ public class RoomButtonManager : MonoBehaviour
 
     void Start()
     {
+        if (_roomButtonPrefab == null)
+        {
+            Debug.LogError("Room Button structure has not been set.");
+            return;
+        }
+        if (_roomsDisplay == null)
+        {
+            Debug.LogError("Room buttons' parent has not been set.");
+            return;
+        }
+        if (_roomIcons.Length != _roomNames.Length || _roomIcons.Length != _roomPrefabs.Length)
+        {
+            Debug.LogError("Room information lists aren't equal length.");
+            return;
+        }
         for (int i = 0; i < _roomPrefabs.Length; i++) //creates x amount of buttons, according to the length of the lists above
         {
             GameObject buttonObj = Instantiate(_roomButtonPrefab, _roomsDisplay); //creates room button under the _roomsDisplay game object

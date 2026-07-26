@@ -13,6 +13,12 @@ public class PlacementManager : MonoBehaviour
     private void Awake()
     {
         _cam = Camera.main;
+
+        if (_roomSlot == null)
+        {
+            Debug.LogError($"{name}: Room slot prefab has not been set.");
+            return;
+        }
     }
 
     void Update()
