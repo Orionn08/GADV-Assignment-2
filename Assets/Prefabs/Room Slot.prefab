@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSlot
   _highlight: {fileID: 4604614543059350374}
+  _roomManager: {fileID: 0}
 --- !u!61 &1319563191357995839
 BoxCollider2D:
   m_ObjectHideFlags: 0

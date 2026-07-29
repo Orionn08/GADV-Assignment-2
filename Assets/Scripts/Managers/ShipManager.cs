@@ -3,12 +3,18 @@ using UnityEngine;
 public class ShipManager : MonoBehaviour
 {
     public static ShipManager Instance;
+    public SavingPlayerShip playerShip = new();
 
-    public SavingPlayerShip playerShip = new SavingPlayerShip();
-
-    private void Awake()
+    void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
 //made with the help of Chat GPT

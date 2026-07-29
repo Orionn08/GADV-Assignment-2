@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlacementManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class PlacementManager : MonoBehaviour
         OnClick();
     }
 
-    void OnHover()
+    public void OnHover()
     {
         Vector2 mousePos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
         //coverts pixels into world coordinates the starting point of the raycast

@@ -17,12 +17,15 @@ public class PlayerShipBuilder : MonoBehaviour
     private void BuildShip()
     {
         SavingPlayerShip ship = ShipManager.Instance.playerShip;
-
+        if (ship.rooms.Count == 0) return;
+        
         foreach(RoomData room in ship.rooms)
         {
             GameObject newRoom = Instantiate(room.prefab, _roomsParent);
             newRoom.transform.localPosition = room.position;
             newRoom.name = room.name;
+            Room roomScript = newRoom.GetComponent<Room>();
+            if (roomScript != null) roomScript.prefab = room.prefab;
             RemoveOccupiedSlot(room.position);
         }
     }

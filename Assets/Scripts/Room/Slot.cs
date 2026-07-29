@@ -4,6 +4,7 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
+    [SerializeField] private GameObject _roomManager;
     public void Highlight(bool state) //sets the highlight object to the opposite state it was originally at
     {
         _highlight.SetActive(state); //turns on and off highlight so the player can see what room they are hovering over

@@ -7,42 +7,57 @@ using UnityEngine.SceneManagement;
 public class Weapon : MonoBehaviour
 {
     private Ship _ship;
-
+    private PlacementManager _placementManager;
     public int damage; // Amount of damage the weapon deals
     public float cooldown; // Time between attacks
     private float _attackTimer;
-    private Scene currentScene;
+    private Scene _currentScene;
 
-    private void Start()
-    {
-        currentScene = SceneManager.GetActiveScene();
-
-        if (currentScene.name != "Combat")
-            return;
-
+    void Awake()
+    {   
+        if (_currentScene.name != "Combat") return;
+        _currentScene = SceneManager.GetActiveScene();
         _ship = GetComponentInParent<Ship>();
-
+        if (_placementManager == null)
+        {
+            Debug.LogError($"{name}: Placement Manager has not been set.");
+            return;
+        }
         if (_ship == null)
         {
             Debug.LogError($"{name}: No Ship component found in parent objects.");
             return;
         }
-
         if (_ship.OpposingShip == null)
         {
             Debug.LogError($"{name}: Opposing ship has not been assigned.");
             return;
         }
+        if (cooldown <= 0)
+        {
+            Debug.LogError($"{name}: No cooldown has been set or is negative");
+            return;
+        }
+        if (damage <= 0)
+        {
+            Debug.LogError($"{name}: No damage has been set or is negative");
+            return;
+        }
 
-        _attackTimer = cooldown + 0.25f;
+        _attackTimer = cooldown + 0.25f + Random.Range(0f, 1f);
+;
     }
 
-    private void Update()
-    {
-        if (currentScene.name != "Combat") return;
+    void Update()
+    {   
+        if (_currentScene.name != "Combat") return;
+        if (!CombatManager.Instance.CombatActive) return;
+        if (_placementManager = null) return;
+
         if(cooldown <= 0) return;
         if (_ship == null || _ship.OpposingShip == null) return;
 
+        _placementManager.OnHover();
         _attackTimer -= Time.deltaTime;
 
         if (_attackTimer <= 0)

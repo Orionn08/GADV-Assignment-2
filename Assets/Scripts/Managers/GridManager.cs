@@ -8,7 +8,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform _rooms; //for grouping all rooms before under an empty game object
     [SerializeField] private Slot _roomSlotPrefab; //the room slot, a prefab, to be instantiated later
 
-    void Start()
+    void Awake()
     {
         GenerateGrid();
     }
@@ -30,13 +30,13 @@ public class GridManager : MonoBehaviour
         {
             for(int y = 0; y < _height; y++) //creates x amount of columns according to _height
             {
-                float xPos = x * 7f;
-                float yPos = y * 4f; //ensures that each room slot appears right next to each other and also doesn't overlap
+                float xPos = (x * 7) -3;
+                float yPos = (y * 4) -3; //ensures that each room slot appears right next to each other and also doesn't overlap
 
                 var roomSlot = Instantiate(_roomSlotPrefab, _rooms);
                 roomSlot.transform.localPosition = new Vector2(xPos, yPos);
                 //creates each room slot at its respective positions under the _rooms game object
-                roomSlot.name = $"Room ({roomSlot.transform.position.x} {roomSlot.transform.position.y})";
+                roomSlot.name = $"Room Slot ({roomSlot.transform.position.x} {roomSlot.transform.position.y})";
                 //gives each room slot a name according to its coordinates
             }
         }

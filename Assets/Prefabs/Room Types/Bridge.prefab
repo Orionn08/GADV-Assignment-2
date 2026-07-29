@@ -99,3 +99,4 @@ MonoBehaviour:
   currentHealth: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _healthBar: {fileID: 4554489919584842513}
+  _roomType: 0

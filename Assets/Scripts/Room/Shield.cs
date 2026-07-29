@@ -13,9 +13,10 @@ public class Shield : MonoBehaviour
 
     void Start()
     {
-        _ship = GetComponentInParent<Ship>();
         currentScene = SceneManager.GetActiveScene();
+        _ship = GetComponentInParent<Ship>();
 
+        if (currentScene.name != "Combat") return;
         if (_ship == null)
         {
             Debug.LogError($"{name}: No Ship component found in parent objects.");
@@ -26,12 +27,13 @@ public class Shield : MonoBehaviour
             Debug.LogError($"{name}: No cooldown has been set or is negative");
             return;
         }
-        _shieldTimer = cooldown;
+        _shieldTimer = cooldown + Random.Range(0f, 1f);
     } //sets shield generator to produce a shield after x amount of seconds (according to _cooldown) when the game object is first instantiated
     //also ensures that shield isn't immediately gained upon being instantiated
     void Update()
-    {   
+    {        
         if(currentScene.name != "Combat") return;
+        if (!CombatManager.Instance.CombatActive) return;
         if(cooldown <= 0) return;
 
         _shieldTimer -= Time.deltaTime;

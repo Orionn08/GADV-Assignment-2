@@ -2,18 +2,21 @@
 //it also contains the function for taking damage
 
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Room : MonoBehaviour
 {   
     [HideInInspector] public GameObject prefab;
+    private List<GameObject> healthPoints = new();
     [SerializeField] private int _maxHealth; //can be changed in inspector
-    [HideInInspector] public float currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
+    [HideInInspector] public int currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
     [SerializeField] private GameObject _point;
     [SerializeField] private Transform _healthBar;
     //sets varibles for room's health
 
     void Awake()
     {
+        if (name.Contains("Room Slot")) return;
         if (_maxHealth <= 0)
         {
             Debug.LogError($"{name}: Max health has not been set or is negative.");
@@ -30,16 +33,26 @@ public class Room : MonoBehaviour
         {
             float xPos = -3 + 0.7f * i; //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.RoomHealth);
+            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.RoomHealth);
             healthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
             healthPoint.transform.localPosition = new Vector2(xPos, 1.5f);
             //ensures that each health point is next to each other but not overlap
+            healthPoints.Add(healthPoint);
         }
     }
 
-    public void DamageTaken(float damage)
+    public void DamageTaken(float healthLost)
     {
-        currentHealth = currentHealth - damage;
+        int startingHealth = currentHealth;
+        for(int i = 0; i <= healthLost -1; i++)
+        {
+            if (currentHealth == 0) return;
+            
+            GameObject healthPoint = healthPoints[startingHealth -i -1];
+            healthPoint.name = $"Health Point {startingHealth -i} (Empty)";
+            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
+            currentHealth--;
+        }
     }
     //a shell functions that will be edited accordingly and implemented later
 }

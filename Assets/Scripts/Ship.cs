@@ -10,8 +10,10 @@ public class Ship : MonoBehaviour
 {
     private GameObject _ship;
     
-    private List<GameObject> healthPoints = new List<GameObject>();
-    private List<GameObject> sheildPoints = new List<GameObject>();
+    private List<GameObject> _healthPoints = new();
+    private List<GameObject> _sheildPoints = new();
+    private List<Transform> _rooms = new();
+    private Transform _roomParent;
     [SerializeField] private int _maxHealth, _maxShield; //can be changed in inspector
     [HideInInspector] public int currentHealth, currentShield;
     [SerializeField] private GameObject _point;
@@ -46,17 +48,27 @@ public class Ship : MonoBehaviour
             Debug.LogError($"{name}: Max shield has not been set or is negative.");
             return;
         }
+        if (_roomParent == null)
+        {
+            Debug.LogError($"{name}: Rooms parent has not been set.");
+            return;
+        }
+
+        foreach(Transform room in _rooms)
+        {
+            
+        }
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
             float xPos = 2.1f * i; //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.ShipHealth);
+            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ShipHealth);
             healthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
             healthPoint.transform.localPosition = new Vector2(xPos, 0.5f); 
             //ensures that each health point is next to each other but not overlap
             healthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
-            healthPoints.Add(healthPoint);
+            _healthPoints.Add(healthPoint);
         }
 
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
@@ -71,14 +83,14 @@ public class Ship : MonoBehaviour
             else
             {
                 shieldPoint = Instantiate(_point, _shieldBar); //creates shield point under the _shieldBar game object
-                shieldPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.Shield);
+                shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
                 shieldPoint.name = $"Sheild Point {i+1}"; //gives the shield point a name according to the order it was spawned
             }
 
             shieldPoint.transform.localPosition = new Vector2(xPos, 0.5f);
             //ensures that each shield point is next to each other but not overlap
             shieldPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
-            sheildPoints.Add(shieldPoint);
+            _sheildPoints.Add(shieldPoint);
         }
     }
 
@@ -94,12 +106,12 @@ public class Ship : MonoBehaviour
         for (int i = 0; i <= shieldGain -1; i++)
         {
             currentShield++;
-            for(int j = 0; j <= sheildPoints.Count -1; j++)
+            for(int j = 0; j <= _sheildPoints.Count -1; j++)
             {
-                GameObject shieldPoint = sheildPoints[j];
+                GameObject shieldPoint = _sheildPoints[j];
                 if (shieldPoint.name.Contains("Empty"))
                 {
-                    shieldPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.Shield);
+                    shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
                     shieldPoint.name = $"Sheild Point {currentShield}";
                     break;
                 }
@@ -117,9 +129,9 @@ public class Ship : MonoBehaviour
                 HealthLost(shieldLost -i);
                 return;
             }
-            GameObject shieldPoint = sheildPoints[startingShield -i -1];
+            GameObject shieldPoint = _sheildPoints[startingShield -i -1];
             shieldPoint.name = $"Sheild Point {startingShield -i} (Empty)";
-            shieldPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.Empty);
+            shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
             currentShield--;
         }
     }
@@ -131,9 +143,9 @@ public class Ship : MonoBehaviour
         {
             if (currentHealth == 0) return;
             
-            GameObject healthPoint = healthPoints[startingHealth -i -1];
+            GameObject healthPoint = _healthPoints[startingHealth -i -1];
             healthPoint.name = $"Health Point {startingHealth -i} (Empty)";
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointTypes.Empty);
+            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
             currentHealth--;
         }
     }

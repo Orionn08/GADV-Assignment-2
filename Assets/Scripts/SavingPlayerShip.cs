@@ -4,17 +4,16 @@ using UnityEngine;
 [System.Serializable]
 public class SavingPlayerShip
 {
-    public List<RoomData> rooms = new List<RoomData>();
+    public List<RoomData> rooms = new();
 
     public void SaveShip(Transform roomsParent)
     {
         rooms.Clear();
 
         foreach(Transform room in roomsParent)
-        {
+        {   
             Room roomScript = room.GetComponent<Room>();
-            if (roomScript == null)
-                continue;
+            if (roomScript == null) continue;
             RoomData data = new RoomData();
             data.prefab = room.GetComponent<Room>().prefab;
             data.position = room.localPosition;
