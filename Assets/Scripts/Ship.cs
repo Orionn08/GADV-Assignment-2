@@ -9,11 +9,10 @@ using Unity.VisualScripting;
 public class Ship : MonoBehaviour
 {
     private GameObject _ship;
-    
     private List<GameObject> _healthPoints = new();
     private List<GameObject> _sheildPoints = new();
-    private List<Transform> _rooms = new();
-    private Transform _roomParent;
+    private List<Room> _rooms = new();
+    [SerializeField] private Transform _roomsParent;
     [SerializeField] private int _maxHealth, _maxShield; //can be changed in inspector
     [HideInInspector] public int currentHealth, currentShield;
     [SerializeField] private GameObject _point;
@@ -48,15 +47,10 @@ public class Ship : MonoBehaviour
             Debug.LogError($"{name}: Max shield has not been set or is negative.");
             return;
         }
-        if (_roomParent == null)
+        if (_roomsParent == null)
         {
             Debug.LogError($"{name}: Rooms parent has not been set.");
             return;
-        }
-
-        foreach(Transform room in _rooms)
-        {
-            
         }
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
@@ -93,10 +87,33 @@ public class Ship : MonoBehaviour
             _sheildPoints.Add(shieldPoint);
         }
     }
-
-    public void DamageTaken(int damage)
+    private void Start()
     {
-        if (currentShield > 0) ShieldLost(damage);
+        foreach (Transform roomTransform in _roomsParent)
+        {
+            Room room = roomTransform.GetComponent<Room>();
+            if(room != null) _rooms.Add(room);
+        }
+    }
+
+    public void DamageTaken(int damage, Room targetRoom = null)
+    {
+        if (currentShield > 0) 
+        {
+            ShieldLost(damage, targetRoom);
+            return;
+        }
+        else if (targetRoom == null)
+        {
+            Room RandomRoom = _rooms[Random.Range(0, _rooms.Count)];
+            RandomRoom.DamageTaken(damage);
+            return;
+        }
+        else if(targetRoom.currentHealth > 0)
+        {
+            targetRoom.DamageTaken(damage);
+            return;
+        }
         else HealthLost(damage);
     }
 
@@ -119,34 +136,39 @@ public class Ship : MonoBehaviour
         } 
     } //edited using Chat GPT 
 
-    public void ShieldLost(int shieldLost)
+    public void ShieldLost(int shieldLost, Room targetRoom)
     {
-        int startingShield = currentShield;
+        int StartingShield = currentShield;
         for(int i = 0; i <= shieldLost -1; i++)
         {
+            currentShield--;
+            GameObject ShieldPoint = _sheildPoints[StartingShield -i -1];
+            ShieldPoint.name = $"Sheild Point {StartingShield -i} (Empty)";
+            ShieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
             if (currentShield == 0)
             {
-                HealthLost(shieldLost -i);
+                if (targetRoom == null)
+                {
+                    Room RandomRoom = _rooms[Random.Range(0, _rooms.Count)];
+                    RandomRoom.DamageTaken(shieldLost -i -1);
+                }
+                else targetRoom.DamageTaken(shieldLost -i -1);
                 return;
             }
-            GameObject shieldPoint = _sheildPoints[startingShield -i -1];
-            shieldPoint.name = $"Sheild Point {startingShield -i} (Empty)";
-            shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
-            currentShield--;
         }
     }
 
     public void HealthLost(int healthLost)
     {
-        int startingHealth = currentHealth;
+        int StartingHealth = currentHealth;
         for(int i = 0; i <= healthLost -1; i++)
         {
-            if (currentHealth == 0) return;
-            
-            GameObject healthPoint = _healthPoints[startingHealth -i -1];
-            healthPoint.name = $"Health Point {startingHealth -i} (Empty)";
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
             currentHealth--;
+            
+            GameObject HealthPoint = _healthPoints[StartingHealth -i -1];
+            HealthPoint.name = $"Health Point {StartingHealth -i} (Empty)";
+            HealthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
+            if (currentHealth == 0) return;
         }
     }
     //edited with the help of Chat GPT

@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   prefab: {fileID: 0}
+  isDestroyed: 0
+  ship: {fileID: 0}
   _maxHealth: 8
   currentHealth: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
@@ -111,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   damage: 2
   cooldown: 5
+  targetRoom: {fileID: 0}
 --- !u!4 &4820219278385259547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7875151142226738145, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}

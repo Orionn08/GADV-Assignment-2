@@ -8,12 +8,10 @@ public class PlacementManager : MonoBehaviour
 {
     [SerializeField] private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
-    private Camera _cam;
     private Slot _hoveredSlot; //refers to a single room in the ship
 
     private void Awake()
     {
-        _cam = Camera.main;
 
         if (_roomSlot == null)
         {
@@ -30,7 +28,7 @@ public class PlacementManager : MonoBehaviour
 
     public void OnHover()
     {
-        Vector2 mousePos = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
         //coverts pixels into world coordinates the starting point of the raycast
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
 

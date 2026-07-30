@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   prefab: {fileID: 0}
+  isDestroyed: 0
+  ship: {fileID: 0}
   _maxHealth: 4
   currentHealth: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
@@ -120,3 +122,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   damage: 1
   cooldown: 2
+  targetRoom: {fileID: 0}

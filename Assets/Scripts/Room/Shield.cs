@@ -33,6 +33,7 @@ public class Shield : MonoBehaviour
     void Update()
     {        
         if(currentScene.name != "Combat") return;
+        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
         if (!CombatManager.Instance.CombatActive) return;
         if(cooldown <= 0) return;
 

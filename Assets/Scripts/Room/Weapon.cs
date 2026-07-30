@@ -7,22 +7,18 @@ using UnityEngine.SceneManagement;
 public class Weapon : MonoBehaviour
 {
     private Ship _ship;
-    private PlacementManager _placementManager;
     public int damage; // Amount of damage the weapon deals
     public float cooldown; // Time between attacks
     private float _attackTimer;
     private Scene _currentScene;
+    public Room targetRoom;
 
-    void Awake()
+    void Start()
     {   
-        if (_currentScene.name != "Combat") return;
         _currentScene = SceneManager.GetActiveScene();
         _ship = GetComponentInParent<Ship>();
-        if (_placementManager == null)
-        {
-            Debug.LogError($"{name}: Placement Manager has not been set.");
-            return;
-        }
+
+        if (_currentScene.name != "Combat") return;
         if (_ship == null)
         {
             Debug.LogError($"{name}: No Ship component found in parent objects.");
@@ -45,25 +41,23 @@ public class Weapon : MonoBehaviour
         }
 
         _attackTimer = cooldown + 0.25f + Random.Range(0f, 1f);
-;
     }
 
     void Update()
     {   
         if (_currentScene.name != "Combat") return;
+        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
         if (!CombatManager.Instance.CombatActive) return;
-        if (_placementManager = null) return;
 
         if(cooldown <= 0) return;
         if (_ship == null || _ship.OpposingShip == null) return;
 
-        _placementManager.OnHover();
         _attackTimer -= Time.deltaTime;
 
         if (_attackTimer <= 0)
         {
             _attackTimer = cooldown;
-            _ship.OpposingShip.DamageTaken(damage);
+            _ship.OpposingShip.DamageTaken(damage, targetRoom);
         }
     }
 }

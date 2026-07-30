@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class CombatManager : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Ship _enemyShip;
     [SerializeField] private GameObject _victoryScreen;
     [SerializeField] private GameObject _defeatScreen;
+    private Weapon _selectedWeapon;
 
     private void Awake()
     {
@@ -30,6 +33,28 @@ public class CombatManager : MonoBehaviour
     void Update()
     {   
         if(_playerShip.currentHealth == 0 || _enemyShip.currentHealth == 0) EndComat();
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit.collider == null) return;
+
+            Room room = hit.collider.GetComponent<Room>();
+            if (room == null) return;
+            
+            if (room.ship == _playerShip)
+            {
+                Weapon weapon = room.GetComponent<Weapon>();
+                if (weapon != null) _selectedWeapon = weapon;
+                else _selectedWeapon = null;
+            }
+
+            else if (room.ship == _enemyShip)
+            {
+                if (_selectedWeapon != null) _selectedWeapon.targetRoom = room;
+            }
+        }
     }
     private void EndComat()
     {   
