@@ -8,11 +8,18 @@ public class Weapon : MonoBehaviour
 {
     private Ship _ship;
     public int damage; // Amount of damage the weapon deals
+    public int baseDamage;
     public float cooldown; // Time between attacks
+    public float baseCooldown;
     private float _attackTimer;
     private Scene _currentScene;
     public Room targetRoom;
 
+    void Awake()
+    {
+        baseCooldown = cooldown;
+        baseDamage = damage;
+    }
     void Start()
     {   
         _currentScene = SceneManager.GetActiveScene();

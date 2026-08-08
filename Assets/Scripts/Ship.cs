@@ -55,7 +55,7 @@ public class Ship : MonoBehaviour
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
-            float xPos = 2.1f * i; //determines the x position of the health point
+            float xPos = 1.5f * i; //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
             healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ShipHealth);
             healthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
@@ -68,7 +68,7 @@ public class Ship : MonoBehaviour
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
         {
             GameObject shieldPoint; 
-            float xPos = 2.1f * i; //determines the x position of the shield point
+            float xPos = 1.5f * i; //determines the x position of the shield point
             if (currentScene.name == "Combat")
             {
                 shieldPoint = Instantiate(_point, _shieldBar); //creates an empty shield point under the _shieldBar game object
@@ -94,6 +94,34 @@ public class Ship : MonoBehaviour
             Room room = roomTransform.GetComponent<Room>();
             if(room != null) _rooms.Add(room);
         }
+    }
+
+    public List<Room> GetAdjacentRooms(Room centerRoom)
+    {
+        List<Room> adjacent = new();
+
+        Vector2[] offsets =
+        {
+            new(-7,0),
+            new(7,0),
+            new(0,4),
+            new(0,-4)
+        };
+
+        foreach (Vector2 offset in offsets)
+        {
+            Vector2 position = (Vector2)centerRoom.transform.localPosition + offset;
+
+            foreach(Room room in _rooms)
+            {
+                if((Vector2)room.transform.localPosition == position)
+                {
+                    adjacent.Add(room);
+                    break;
+                }
+            }
+        }
+        return adjacent;
     }
 
     public void DamageTaken(int damage, Room targetRoom = null)
@@ -170,6 +198,23 @@ public class Ship : MonoBehaviour
             HealthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
             if (currentHealth == 0) return;
         }
+    }
+
+    public void AddRoom(Room room)
+    {
+        _rooms.Add(room);
+        UpdateSupport();
+    }
+
+    public void RemoveRoom(Room room)
+    {
+        _rooms.Remove(room);
+        UpdateSupport();
+    }
+
+    public void UpdateSupport()
+    {
+        foreach (Room room in _rooms) room.RefreshSupportEffects();
     }
     //edited with the help of Chat GPT
 }

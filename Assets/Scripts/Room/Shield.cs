@@ -8,8 +8,14 @@ public class Shield : MonoBehaviour
 {   
     private Ship _ship;
     public float cooldown; //sets how often shield is gained, can be changed in inspector
+    public float baseCooldown;
     private float _shieldTimer; //determines when shield can be gained
     private Scene currentScene;
+
+    void Awake()
+    {
+        baseCooldown = cooldown;
+    }
 
     void Start()
     {
