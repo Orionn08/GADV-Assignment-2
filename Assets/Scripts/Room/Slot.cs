@@ -46,7 +46,7 @@ public class Slot : MonoBehaviour
         spawnedRoom.name = $"Room ({transform.position.x} {transform.position.y})"; 
         //keeps the same naming convention of naming by the coordinates of the room
         Room room = GetComponent<Room>();
-        ship.RemoveRoom(room);
+        if (room != null) ship.RemoveRoom(room);
         Destroy(gameObject); //deletes this current room
     }
 }

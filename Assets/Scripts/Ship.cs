@@ -203,18 +203,28 @@ public class Ship : MonoBehaviour
     public void AddRoom(Room room)
     {
         _rooms.Add(room);
-        UpdateSupport();
+        room.CreateHealthPoints();
+        room.RefreshSupportEffects();
+
+        foreach (Room neighbour in GetAdjacentRooms(room)) neighbour.RefreshSupportEffects();
     }
 
     public void RemoveRoom(Room room)
     {
+        List<Room> neighbours = GetAdjacentRooms(room);
         _rooms.Remove(room);
-        UpdateSupport();
+
+        foreach (Room neighbour in neighbours) neighbour.RefreshSupportEffects();
     }
 
-    public void UpdateSupport()
+    public void RefreshSupport(Room changedRoom)
     {
-        foreach (Room room in _rooms) room.RefreshSupportEffects();
+        changedRoom.RefreshSupportEffects();
+
+        foreach (Room room in GetAdjacentRooms(changedRoom))
+        {
+            room.RefreshSupportEffects();
+        }
     }
     //edited with the help of Chat GPT
 }
