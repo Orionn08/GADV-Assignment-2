@@ -20,6 +20,12 @@ public class RoomButton : MonoBehaviour
     void Awake()
     {
         _placementManager = FindFirstObjectByType<PlacementManager>();
+
+        if (_placementManager == null)
+        {
+            Debug.LogError($"{name}: Placement manager can't be found.");
+            return;
+        }
     }
     public void Setup(GameObject prefab, Sprite icon, string name)
     {
@@ -37,7 +43,7 @@ public class RoomButton : MonoBehaviour
 
     private void OnClick()
     {
-        Debug.Log("Selected: " + roomName);
+        if (_placementManager == null) return;
         _placementManager.SetSelectedRoom(roomPrefab); 
         //sets the prefab linked to the button that was click to be selected room
     }

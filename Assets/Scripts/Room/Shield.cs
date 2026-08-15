@@ -2,32 +2,53 @@
 //it controls how often and when a shield can be gained
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Shield : MonoBehaviour
 {   
+    private Ship _ship;
     public float cooldown; //sets how often shield is gained, can be changed in inspector
-    [SerializeField] private float _shieldTimer; //determines when shield can be gained
+    public float baseCooldown;
+    private float _shieldTimer; //determines when shield can be gained
+    private Scene currentScene;
+
+    void Awake()
+    {
+        baseCooldown = cooldown;
+    }
 
     void Start()
     {
-        _shieldTimer = cooldown;
+        currentScene = SceneManager.GetActiveScene();
+        _ship = GetComponentInParent<Ship>();
+
+        if (currentScene.name != "Combat") return;
+        if (_ship == null)
+        {
+            Debug.LogError($"{name}: No Ship component found in parent objects.");
+            return;
+        }
+        if (cooldown <= 0)
+        {
+            Debug.LogError($"{name}: No cooldown has been set or is negative");
+            return;
+        }
+        _shieldTimer = cooldown + Random.Range(0f, 1f);
     } //sets shield generator to produce a shield after x amount of seconds (according to _cooldown) when the game object is first instantiated
     //also ensures that shield isn't immediately gained upon being instantiated
-
     void Update()
-    {
-        _shieldTimer -= Time.deltaTime; //ensures _shieldTimer goes down at a constant rate
-        GainShield();
-    }
+    {        
+        if(currentScene.name != "Combat") return;
+        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
+        if (!CombatManager.Instance.CombatActive) return;
+        if(cooldown <= 0) return;
 
-    public void GainShield()
-    {
-        if(_shieldTimer > 0)
-        return; //doesn't do anything if _shieldTimer isn't below 0
-
-        Debug.Log($"{name} gain 1 shield");
-        //for now shield can't actually be gained so this log states which shield generator produced a shield
-        _shieldTimer = cooldown; //sets the shield generator to gain another shield after x amount of seconds (according to _cooldown) after a shield was gained
+        _shieldTimer -= Time.deltaTime;
+        if(_shieldTimer <= 0)
+        {
+            _ship.ShieldGain(1);
+            _shieldTimer = cooldown;
+        }
     }
 }
 //rough code structure from https://www.youtube.com/watch?v=N4SFyoLBOS4, the 3rd example

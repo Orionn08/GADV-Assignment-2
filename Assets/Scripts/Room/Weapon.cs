@@ -2,33 +2,70 @@
 //it controls how often and when a weapon can be fired
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Weapon : MonoBehaviour
-{   
-    public float damage; //amount of damage that will be dealt, can be changed in inspector
-    public float cooldown; //sets how often the weapon can fire
-    [SerializeField] private float _attackTimer; //determines when the weapon can fire
+{
+    private Ship _ship;
+    public int damage; // Amount of damage the weapon deals
+    public int baseDamage;
+    public float cooldown; // Time between attacks
+    public float baseCooldown;
+    private float _attackTimer;
+    private Scene _currentScene;
+    public Room targetRoom;
 
+    void Awake()
+    {
+        baseCooldown = cooldown;
+        baseDamage = damage;
+    }
     void Start()
-    {
-        _attackTimer = cooldown; 
-    }  //sets the weapon to fire after x amount of seconds (according to _cooldown) when the game object is first instantiated
-    //also ensures that the weapon doesn't immediately fire upon being instantiated
+    {   
+        _currentScene = SceneManager.GetActiveScene();
+        _ship = GetComponentInParent<Ship>();
 
-    void Update()
-    {
-        _attackTimer -= Time.deltaTime; //ensures _attackTimer goes down at a constant rate
-        Attack();
+        if (_currentScene.name != "Combat") return;
+        if (_ship == null)
+        {
+            Debug.LogError($"{name}: No Ship component found in parent objects.");
+            return;
+        }
+        if (_ship.OpposingShip == null)
+        {
+            Debug.LogError($"{name}: Opposing ship has not been assigned.");
+            return;
+        }
+        if (cooldown <= 0)
+        {
+            Debug.LogError($"{name}: No cooldown has been set or is negative");
+            return;
+        }
+        if (damage <= 0)
+        {
+            Debug.LogError($"{name}: No damage has been set or is negative");
+            return;
+        }
+
+        _attackTimer = cooldown + 0.25f + Random.Range(0f, 1f);
     }
 
-    public void Attack()
-    {
-        if(_attackTimer > 0)
-        return; //doesn't do anything if _attackTimer isn't below 0
+    void Update()
+    {   
+        if (_currentScene.name != "Combat") return;
+        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
+        if (!CombatManager.Instance.CombatActive) return;
 
-        Debug.Log($"{name} fired dealing {damage} damage");
-        //for now the weapon doesn't actually do damage so this log states which weapon room fired and how much damage it's supposed to do
-        _attackTimer = cooldown; //sets the weapon to fire after x amount of seconds (according to _cooldown) after the weapon has fired
+        if(cooldown <= 0) return;
+        if (_ship == null || _ship.OpposingShip == null) return;
+
+        _attackTimer -= Time.deltaTime;
+
+        if (_attackTimer <= 0)
+        {
+            _attackTimer = cooldown;
+            _ship.OpposingShip.DamageTaken(damage, targetRoom);
+        }
     }
 }
 //rough code structure from https://www.youtube.com/watch?v=N4SFyoLBOS4, the 3rd example
