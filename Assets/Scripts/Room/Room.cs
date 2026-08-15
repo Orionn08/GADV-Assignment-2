@@ -46,6 +46,7 @@ public class Room : MonoBehaviour
         }
 
         _baseMaxHealth = _maxHealth;
+        CreateHealthPoints();
         
         _roomRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }

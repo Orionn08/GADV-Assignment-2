@@ -11,7 +11,7 @@ public class Ship : MonoBehaviour
     private GameObject _ship;
     private List<GameObject> _healthPoints = new();
     private List<GameObject> _sheildPoints = new();
-    private List<Room> _rooms = new();
+    public List<Room> _rooms = new();
     [SerializeField] private Transform _roomsParent;
     [SerializeField] private int _maxHealth, _maxShield; //can be changed in inspector
     [HideInInspector] public int currentHealth, currentShield;
@@ -123,7 +123,6 @@ public class Ship : MonoBehaviour
         }
         return adjacent;
     }
-    
 
     public void DamageTaken(int damage, Room targetRoom = null)
     {
@@ -204,7 +203,6 @@ public class Ship : MonoBehaviour
     public void AddRoom(Room room)
     {
         _rooms.Add(room);
-        room.CreateHealthPoints();
         room.RefreshSupportEffects();
 
         foreach (Room neighbour in GetAdjacentRooms(room)) neighbour.RefreshSupportEffects();
