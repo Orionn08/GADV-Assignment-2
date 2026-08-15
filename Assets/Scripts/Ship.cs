@@ -123,6 +123,7 @@ public class Ship : MonoBehaviour
         }
         return adjacent;
     }
+    
 
     public void DamageTaken(int damage, Room targetRoom = null)
     {
