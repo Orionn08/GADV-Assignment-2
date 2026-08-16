@@ -6,7 +6,8 @@ public enum PointType
     Empty, 
     RoomHealth, 
     ShipHealth,
-    Shield
+    Shield,
+    ExtraRoomHealth
 }
 
 public class Point : MonoBehaviour
@@ -18,7 +19,8 @@ public class Point : MonoBehaviour
         {PointType.Empty, new Color32(149, 149, 149, 255)},
         {PointType.RoomHealth, new Color32(0, 150, 0, 255)},
         {PointType.ShipHealth, new Color32(255, 0, 0, 255)},
-        {PointType.Shield, new Color32(0, 0, 255, 255)}
+        {PointType.Shield, new Color32(0, 0, 255, 255)},
+        {PointType.ExtraRoomHealth, new Color32(149, 255, 149, 255)}
     };
 
     private void Awake()

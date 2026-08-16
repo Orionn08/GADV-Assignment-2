@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlacementManager : MonoBehaviour
@@ -21,6 +22,8 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private float _maxReactor;
     [SerializeField] private float _maxShieldGenerator;
 
+    private Scene currentScene;
+
     private void Awake()
     {
         if (_roomSlot == null)
@@ -28,15 +31,19 @@ public class PlacementManager : MonoBehaviour
             Debug.LogError($"{name}: Room slot prefab has not been set.");
             return;
         }
-        if (_ship == null)
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Ship Design")
         {
-            Debug.LogError($"{name}: Ship has not been set.");
-            return;
-        }
-        if (_roomLimitText == null)
-        {
-            Debug.LogError($"{name}: Room limit text has not been set.");
-            return;
+            if (_ship == null)
+            {
+                Debug.LogError($"{name}: Ship has not been set.");
+                return;
+            }
+            if (_roomLimitText == null)
+            {
+                Debug.LogError($"{name}: Room limit text has not been set.");
+                return;
+            }
         }
     }
 
@@ -85,49 +92,18 @@ public class PlacementManager : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (_maxBridge != 0 && _selectedRoomPrefab.name == "Bridge" && CountRooms("Bridge") == _maxBridge)
+            Room Room = _selectedRoomPrefab.GetComponent<Room>();
+            if (Room.limit != 0)
             {
-                _roomLimitText.text = $"Max limit of room type Bridge reached \nLimit: {_maxBridge}";
-                StartCoroutine(ShowRoomText());
-                return;
+                string Roomtype = _selectedRoomPrefab.name;
+                if (CountRooms(Roomtype) == Room.limit)
+                {
+                    _roomLimitText.text = $"Max limit of room type {Roomtype} reached \nLimit: {Room.limit}";
+                    StartCoroutine(ShowRoomText());
+                    return;
+                }
             }
-            else if (_maxEngine != 0 && _selectedRoomPrefab.name == "Engine" && CountRooms("Engine") == _maxEngine)
-            {
-                _roomLimitText.text = $"Max limit of room type Engine reached \nLimit: {_maxEngine}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-            else if (_maxLaserGun != 0 && _selectedRoomPrefab.name == "Laser Gun" && CountRooms("Laser Gun") == _maxLaserGun)
-            {
-                _roomLimitText.text = $"Max limit of room type Engine reached \nLimit: {_maxLaserGun}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-            else if (_maxMachineGun != 0 && _selectedRoomPrefab.name == "Machine Gun" && CountRooms("Machine Gun") == _maxMachineGun)
-            {
-                _roomLimitText.text = $"Max limit of room type Engine reached \nLimit: {_maxMachineGun}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-            else if (_maxMissileLauncher != 0 && _selectedRoomPrefab.name == "Missile Launcher" && CountRooms("Missile Launcher") == _maxMissileLauncher)
-            {
-                _roomLimitText.text = $"Max limit of room type Engine reached \nLimit: {_maxMissileLauncher}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-            else if (_maxReactor != 0 && _selectedRoomPrefab.name == "Reactor" && CountRooms("Reactor") == _maxReactor)
-            {
-                _roomLimitText.text = $"Max limit of room type Reactor reached \nLimit: {_maxReactor}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-            else if (_maxShieldGenerator != 0 && _selectedRoomPrefab.name == "Shield Generator" && CountRooms("Shield Generator") == _maxShieldGenerator)
-            {
-                _roomLimitText.text = $"Max limit of room type Shield Generator reached \nLimit: {_maxShieldGenerator}";
-                StartCoroutine(ShowRoomText());
-                return;
-            }
-
+            
             _hoveredSlot.PlaceRoom(_selectedRoomPrefab); //calls the function for placing a room in Slot.cs
         }
 

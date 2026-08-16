@@ -9,11 +9,12 @@ using UnityEngine.SceneManagement;
 public class Room : MonoBehaviour
 {   
     public GameObject prefab;
+    public float limit;
     private SpriteRenderer _roomRenderer;
     public bool isDestroyed = false; 
     public Ship ship;
     private List<GameObject> _healthPoints = new();
-    [SerializeField] private int _maxHealth; //can be changed in inspector
+    public int _maxHealth; //can be changed in inspector
     [SerializeField] private int _baseMaxHealth;
     public int currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
     [SerializeField] private GameObject _point;
@@ -139,13 +140,10 @@ public class Room : MonoBehaviour
             }
             else if (supportRoom.prefab.name == "Engine")
             {
-                if (weapon != null) weapon.cooldown -= 0.5f;
-                else if (shield != null) shield.cooldown -= 0.5f;
+                if (weapon != null) weapon.cooldown = weapon.cooldown * 0.8f;
+                else if (shield != null) shield.cooldown = shield.cooldown * 0.8f;
             }
-            else if (supportRoom.prefab.name == "Reactor") 
-            {
-                if (weapon != null) weapon.damage += 1;
-            }
+            else if (supportRoom.prefab.name == "Reactor") if (weapon != null) weapon.damage += 1;
     }    
 
     private void CreateExtraHealthPoints(float extraHealthPoints)
@@ -156,7 +154,7 @@ public class Room : MonoBehaviour
         {
             float xPos = xPosition + (0.5f * (i+1)); //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.RoomHealth);
+            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ExtraRoomHealth);
             healthPoint.name = $"Health Point {_healthPoints.Count +1}"; //gives the health point a name according to the order it was spawned
             healthPoint.transform.localPosition = new Vector2(xPos, 1.5f);
             //ensures that each health point is next to each other but not overlap

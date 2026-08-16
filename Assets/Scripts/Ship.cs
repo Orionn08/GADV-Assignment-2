@@ -102,16 +102,12 @@ public class Ship : MonoBehaviour
 
         Vector2[] offsets =
         {
-            new(-7,0),
-            new(7,0),
-            new(0,4),
-            new(0,-4)
+            new(-7,0), new(7,0), new(0,4), new(0,-4)
         };
 
         foreach (Vector2 offset in offsets)
         {
             Vector2 position = (Vector2)centerRoom.transform.localPosition + offset;
-
             foreach(Room room in _rooms)
             {
                 if((Vector2)room.transform.localPosition == position)

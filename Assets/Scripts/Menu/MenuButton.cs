@@ -28,15 +28,15 @@ public class MenuButton : MonoBehaviour
         if (_roomMenu == null || _roomMenuButton == null || _startCombatButton == null) return;
         if(!_roomMenu.activeSelf) //sets the room menu to the opposite state of what it was when the button was pressed
         {
-            _roomMenuButton.transform.localPosition = new Vector2(-27, 2);
-            _startCombatButton.transform.localPosition = new Vector2(27, 2);
+            _roomMenuButton.transform.localPosition = new Vector2(-29, 5);
+            _startCombatButton.transform.localPosition = new Vector2(29, 5);
             //moves the room menu button upwards so it doesnt block the room menu
             _roomMenu.SetActive(true);
         }
         else
         {
-            _roomMenuButton.transform.localPosition = new Vector2(-27, -6);
-            _startCombatButton.transform.localPosition = new Vector2(27, -6);
+            _roomMenuButton.transform.localPosition = new Vector2(-29, -6);
+            _startCombatButton.transform.localPosition = new Vector2(29, -6);
             _roomMenu.SetActive(false);
         }
     }
