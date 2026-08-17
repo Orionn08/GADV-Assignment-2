@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  prefab: {fileID: 0}
+  prefab: {fileID: 6247729428604311355}
   limit: 3
   isDestroyed: 0
   ship: {fileID: 0}

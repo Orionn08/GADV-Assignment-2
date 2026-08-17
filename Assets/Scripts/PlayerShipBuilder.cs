@@ -16,7 +16,7 @@ public class PlayerShipBuilder : MonoBehaviour
 
     private void BuildShip()
     {
-        SavingPlayerShip ship = ShipManager.Instance.playerShip;
+        SavingPlayerShip ship = GameManager.Instance.playerShip;
         if (ship.rooms.Count == 0) return;
         
         foreach(RoomData room in ship.rooms)

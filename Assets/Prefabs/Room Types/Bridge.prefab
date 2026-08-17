@@ -94,11 +94,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  prefab: {fileID: 0}
+  prefab: {fileID: 7984739464435304697}
   limit: 1
   isDestroyed: 0
   ship: {fileID: 0}
-  _maxHealth: 6
+  _maxHealth: 2
   _baseMaxHealth: 0
   currentHealth: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}

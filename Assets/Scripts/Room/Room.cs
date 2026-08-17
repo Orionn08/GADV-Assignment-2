@@ -3,7 +3,6 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 public class Room : MonoBehaviour
@@ -104,6 +103,7 @@ public class Room : MonoBehaviour
 
     public void RefreshSupportEffects()
     {
+        if (isDestroyed == true) return;
         ResetStats();
         foreach(Room room in ship.GetAdjacentRooms(this)) ApplySupport(room);
     }

@@ -55,69 +55,69 @@ public class Ship : MonoBehaviour
 
         for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
         {
-            float xPos = 1.5f * i; //determines the x position of the health point
-            GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ShipHealth);
-            healthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
-            healthPoint.transform.localPosition = new Vector2(xPos, 0.5f); 
+            float XPos = 1.5f * i; //determines the x position of the health point
+            GameObject HealthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
+            HealthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ShipHealth);
+            HealthPoint.name = $"Health Point {i+1}"; //gives the health point a name according to the order it was spawned
+            HealthPoint.transform.localPosition = new Vector2(XPos, 0.5f); 
             //ensures that each health point is next to each other but not overlap
-            healthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
-            _healthPoints.Add(healthPoint);
+            HealthPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
+            _healthPoints.Add(HealthPoint);
         }
 
         for (float i = 0; i < _maxShield; i++) //creates x amount of shield points according to _maxShield
         {
-            GameObject shieldPoint; 
-            float xPos = 1.5f * i; //determines the x position of the shield point
+            GameObject ShieldPoint; 
+            float XPos = 1.5f * i; //determines the x position of the shield point
             if (currentScene.name == "Combat")
             {
-                shieldPoint = Instantiate(_point, _shieldBar); //creates an empty shield point under the _shieldBar game object
-                shieldPoint.name = $"Sheild Point {i+1} (Empty)"; //gives the shield point a name according to the order it was spawned
+                ShieldPoint = Instantiate(_point, _shieldBar); //creates an empty shield point under the _shieldBar game object
+                ShieldPoint.name = $"Sheild Point {i+1} (Empty)"; //gives the shield point a name according to the order it was spawned
             }
             else
             {
-                shieldPoint = Instantiate(_point, _shieldBar); //creates shield point under the _shieldBar game object
-                shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
-                shieldPoint.name = $"Sheild Point {i+1}"; //gives the shield point a name according to the order it was spawned
+                ShieldPoint = Instantiate(_point, _shieldBar); //creates shield point under the _shieldBar game object
+                ShieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
+                ShieldPoint.name = $"Sheild Point {i+1}"; //gives the shield point a name according to the order it was spawned
             }
 
-            shieldPoint.transform.localPosition = new Vector2(xPos, 0.5f);
+            ShieldPoint.transform.localPosition = new Vector2(XPos, 0.5f);
             //ensures that each shield point is next to each other but not overlap
-            shieldPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
-            _sheildPoints.Add(shieldPoint);
+            ShieldPoint.transform.localScale = new Vector2(3, 3); //makes the UI easier to see and look more important
+            _sheildPoints.Add(ShieldPoint);
         }
     }
     private void Start()
     {
-        foreach (Transform roomTransform in _roomsParent)
+        foreach (Transform RoomTransform in _roomsParent)
         {
-            Room room = roomTransform.GetComponent<Room>();
+            Room room = RoomTransform.GetComponent<Room>();
             if(room != null) _rooms.Add(room);
         }
     }
 
     public List<Room> GetAdjacentRooms(Room centerRoom)
     {
-        List<Room> adjacent = new();
+        List<Room> Adjacent = new();
 
-        Vector2[] offsets =
+        Vector2[] Offsets =
         {
             new(-7,0), new(7,0), new(0,4), new(0,-4)
         };
 
-        foreach (Vector2 offset in offsets)
+        foreach (Vector2 offset in Offsets)
         {
             Vector2 position = (Vector2)centerRoom.transform.localPosition + offset;
             foreach(Room room in _rooms)
             {
                 if((Vector2)room.transform.localPosition == position)
                 {
-                    adjacent.Add(room);
+                    Adjacent.Add(room);
                     break;
                 }
             }
         }
-        return adjacent;
+        return Adjacent;
     }
 
     public void DamageTaken(int damage, Room targetRoom = null)
@@ -149,11 +149,11 @@ public class Ship : MonoBehaviour
             currentShield++;
             for(int j = 0; j <= _sheildPoints.Count -1; j++)
             {
-                GameObject shieldPoint = _sheildPoints[j];
-                if (shieldPoint.name.Contains("Empty"))
+                GameObject ShieldPoint = _sheildPoints[j];
+                if (ShieldPoint.name.Contains("Empty"))
                 {
-                    shieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
-                    shieldPoint.name = $"Sheild Point {currentShield}";
+                    ShieldPoint.GetComponentInChildren<Point>().SetPoint(PointType.Shield);
+                    ShieldPoint.name = $"Sheild Point {currentShield}";
                     break;
                 }
             }
@@ -201,15 +201,15 @@ public class Ship : MonoBehaviour
         _rooms.Add(room);
         room.RefreshSupportEffects();
 
-        foreach (Room neighbour in GetAdjacentRooms(room)) neighbour.RefreshSupportEffects();
+        foreach (Room Neighbour in GetAdjacentRooms(room)) Neighbour.RefreshSupportEffects();
     }
 
     public void RemoveRoom(Room room)
     {
-        List<Room> neighbours = GetAdjacentRooms(room);
+        List<Room> Neighbours = GetAdjacentRooms(room);
         _rooms.Remove(room);
 
-        foreach (Room neighbour in neighbours) neighbour.RefreshSupportEffects();
+        foreach (Room Neighbour in Neighbours) Neighbour.RefreshSupportEffects();
     }
 
     public void RefreshSupport(Room changedRoom)

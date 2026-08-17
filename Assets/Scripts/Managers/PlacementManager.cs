@@ -13,16 +13,7 @@ public class PlacementManager : MonoBehaviour
     private Slot _hoveredSlot; //refers to a single room in the ship
     [SerializeField] private Ship _ship;
     [SerializeField] private TMP_Text _roomLimitText;
-
-    [SerializeField] private float _maxBridge;
-    [SerializeField] private float _maxEngine;
-    [SerializeField] private float _maxLaserGun;
-    [SerializeField] private float _maxMachineGun;
-    [SerializeField] private float _maxMissileLauncher;
-    [SerializeField] private float _maxReactor;
-    [SerializeField] private float _maxShieldGenerator;
-
-    private Scene currentScene;
+    private Scene _currentScene;
 
     private void Awake()
     {
@@ -31,8 +22,8 @@ public class PlacementManager : MonoBehaviour
             Debug.LogError($"{name}: Room slot prefab has not been set.");
             return;
         }
-        currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "Ship Design")
+        _currentScene = SceneManager.GetActiveScene();
+        if (_currentScene.name == "Ship Design")
         {
             if (_ship == null)
             {
@@ -85,13 +76,13 @@ public class PlacementManager : MonoBehaviour
 
     void OnClick()
     {
-        if (_hoveredSlot == null) return;
-        if (_selectedRoomPrefab == null) return; //if either variable is null then the function doesn't run to prevent errors
+        if (_hoveredSlot == null) return; //if either variable is null then the function doesn't run to prevent errors
         if (_ship == null) return;
         if (_roomLimitText == null) return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            if (_selectedRoomPrefab == null) return;
             Room Room = _selectedRoomPrefab.GetComponent<Room>();
             if (Room.limit != 0)
             {
