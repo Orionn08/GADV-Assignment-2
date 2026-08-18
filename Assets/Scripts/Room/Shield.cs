@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class Shield : MonoBehaviour
 {   
     private Ship _ship;
-    public float cooldown; //sets how often shield is gained, can be changed in inspector
-    public float baseCooldown;
+    public float Cooldown; //sets how often shield is gained, can be changed in inspector
+    public float BaseCooldown { get; private set; }
     private float _shieldTimer; //determines when shield can be gained
     private Scene currentScene;
 
     void Awake()
     {
-        baseCooldown = cooldown;
+        BaseCooldown = Cooldown;
     }
 
     void Start()
@@ -28,26 +28,26 @@ public class Shield : MonoBehaviour
             Debug.LogError($"{name}: No Ship component found in parent objects.");
             return;
         }
-        if (cooldown <= 0)
+        if (Cooldown <= 0)
         {
             Debug.LogError($"{name}: No cooldown has been set or is negative");
             return;
         }
-        _shieldTimer = cooldown + Random.Range(0f, 1f);
+        _shieldTimer = Cooldown + Random.Range(0f, 1f);
     } //sets shield generator to produce a shield after x amount of seconds (according to _cooldown) when the game object is first instantiated
     //also ensures that shield isn't immediately gained upon being instantiated
     void Update()
     {        
         if(currentScene.name != "Combat") return;
-        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
+        if (gameObject.GetComponent<Room>().IsDestroyed == true) return;
         if (!CombatManager.Instance.CombatActive) return;
-        if(cooldown <= 0) return;
+        if(Cooldown <= 0) return;
 
         _shieldTimer -= Time.deltaTime;
         if(_shieldTimer <= 0)
         {
             _ship.ShieldGain(1);
-            _shieldTimer = cooldown;
+            _shieldTimer = Cooldown;
         }
     }
 }

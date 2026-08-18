@@ -2636,10 +2636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f45473f22356447b4010c5d5849e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacementManager
-  _selectedRoomPrefab: {fileID: 0}
   _roomSlot: {fileID: 4373446530869854217, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}
-  _hoveredSlot: {fileID: 0}
-  _hoveredRoom: {fileID: 0}
   _ship: {fileID: 0}
   _roomLimitText: {fileID: 0}
 --- !u!4 &1757805336
@@ -2810,10 +2807,10 @@ MonoBehaviour:
   _victoryScreen: {fileID: 932268270}
   _defeatScreen: {fileID: 519664527}
   _drawScreen: {fileID: 1082246440}
-  selectedWeapon: {fileID: 0}
   _timerText: {fileID: 96234958}
-  _combatTime: 120
   _combatNumberText: {fileID: 419621397}
+  _victoryButtonText: {fileID: 1260791149}
+  _combatTime: 120
   _combatText: {fileID: 1782446849}
   _combat1EnemyForms:
   - {fileID: 6971892516460701889, guid: a2e92bc01729f5f48ab6a533e4629975, type: 3}

@@ -30,14 +30,10 @@ public class Slot : MonoBehaviour
         //gives the spawned room a name of the selected room plus its coordinates
         Room room = spawnedRoom.GetComponent<Room>();
 
-    if(room != null)
-    {
-        room.prefab = selectedRoom;
-    }
-    else
-    {
-        Debug.LogError($"{name}: Spawned room does not have Room.cs attached");
-    }
+    if(room != null) room.prefab = selectedRoom;
+    
+    else Debug.LogError($"{name}: Spawned room does not have Room.cs attached");
+    
         Room deletedRoom = gameObject.GetComponent<Room>();
         if (deletedRoom != null) ship.RemoveRoom(deletedRoom);
         

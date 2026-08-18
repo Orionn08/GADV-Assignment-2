@@ -43,38 +43,36 @@ public class RoomButton : MonoBehaviour
         Weapon Weapon = prefab.GetComponent<Weapon>();
         Shield Shield = prefab.GetComponent<Shield>();
 
-        
         if (Weapon != null)
         {
             roomNameText.text += " (Weapon)";
-            roomNameText.text += $"\nHealth: {Room._maxHealth}";
-            roomNameText.text += $"\nCooldown: {Weapon.cooldown}s \nDamage: {Weapon.damage}";
+            roomNameText.text += $"\nHealth: {Room.MaxHealth}";
+            roomNameText.text += $"\nCooldown: {Weapon.Cooldown}s \nDamage: {Weapon.Damage}";
         }
         if (Shield != null) 
         {
             roomNameText.text += " (Defense)";
-            roomNameText.text += $"\nHealth: {Room._maxHealth}";
-            roomNameText.text += $"\nCooldown: {Shield.cooldown}s";
+            roomNameText.text += $"\nHealth: {Room.MaxHealth}";
+            roomNameText.text += $"\nCooldown: {Shield.Cooldown}s";
         }
         if (prefab.name == "Bridge")
         {
             roomNameText.text += $" (Support)";
-            roomNameText.text += $"\nHealth: {Room._maxHealth}";
+            roomNameText.text += $"\nHealth: {Room.MaxHealth}";
             roomNameText.text += $"\n Boosts adjacent rooms health";
         } 
         if (prefab.name == "Engine")
         {
             roomNameText.text += $" (Support)";
-            roomNameText.text += $"\nHealth: {Room._maxHealth}";
+            roomNameText.text += $"\nHealth: {Room.MaxHealth}";
             roomNameText.text += $"\nDecreases adjacent rooms' cooldowns";
         }
         if (prefab.name == "Reactor")
         {
             roomNameText.text += $" (Support)";
-            roomNameText.text += $"\nHealth: {Room._maxHealth}";
+            roomNameText.text += $"\nHealth: {Room.MaxHealth}";
             roomNameText.text += $"\n Increases damage of adjacent weapons";
         }
-        
 
         button.onClick.AddListener(OnClick);
     }

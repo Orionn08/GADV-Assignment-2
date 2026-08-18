@@ -297,11 +297,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Room
   prefab: {fileID: 1377936192949100531}
   limit: 5
-  isDestroyed: 0
   ship: {fileID: 0}
-  _maxHealth: 7
+  MaxHealth: 9
   _baseMaxHealth: 0
-  currentHealth: 0
+  CurrentHealth: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _healthBar: {fileID: 4820219278385259547}
   _cooldownText: {fileID: 7969704857958479419}
@@ -322,11 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f97f5d354bc6d442bbd90d4b886ea53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  damage: 2
-  baseDamage: 0
-  cooldown: 6
-  baseCooldown: 0
-  targetRoom: {fileID: 0}
+  Damage: 2
+  Cooldown: 6
+  TargetRoom: {fileID: 0}
   _projectile: {fileID: 4926866003227099317, guid: a986d0e04d8d48b45ad2eba6fd3549cf, type: 3}
 --- !u!1 &1513198955906284811
 GameObject:

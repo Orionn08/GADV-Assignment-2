@@ -8,19 +8,19 @@ using UnityEngine.SceneManagement;
 public class Weapon : MonoBehaviour
 {
     private Ship _ship;
-    public int damage; // Amount of damage the weapon deals
-    public int baseDamage;
-    public float cooldown; // Time between attacks
-    public float baseCooldown;
+    public int Damage; // Amount of damage the weapon deals
+    public int BaseDamage { get; private set; }
+    public float Cooldown; // Time between attacks
+    public float BaseCooldown { get; private set; }
     private float _attackTimer;
     private Scene _currentScene;
-    public Room targetRoom;
+    public Room TargetRoom;
     [SerializeField] private GameObject _projectile;
 
     void Awake()
     {
-        baseCooldown = cooldown;
-        baseDamage = damage;
+        BaseCooldown = Cooldown;
+        BaseDamage = Damage;
     }
     void Start()
     {   
@@ -38,12 +38,12 @@ public class Weapon : MonoBehaviour
             Debug.LogError($"{name}: Opposing ship has not been assigned.");
             return;
         }
-        if (cooldown <= 0)
+        if (Cooldown <= 0)
         {
             Debug.LogError($"{name}: No cooldown has been set or is negative");
             return;
         }
-        if (damage <= 0)
+        if (Damage <= 0)
         {
             Debug.LogError($"{name}: No damage has been set or is negative");
             return;
@@ -54,28 +54,28 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        _attackTimer = cooldown + 0.25f + Random.Range(0f, 1f);
+        _attackTimer = Cooldown + 0.25f + Random.Range(0f, 1f);
     }
 
     void Update()
     {   
         if (_currentScene.name != "Combat") return;
-        if (gameObject.GetComponent<Room>().isDestroyed == true) return;
+        if (gameObject.GetComponent<Room>().IsDestroyed == true) return;
         if (!CombatManager.Instance.CombatActive) return;
 
-        if(cooldown <= 0) return;
+        if(Cooldown <= 0) return;
         if (_ship == null || _ship.OpposingShip == null) return;
 
         _attackTimer -= Time.deltaTime;
 
         if (_attackTimer <= 0)
         {
-            _attackTimer = cooldown;
-            if (targetRoom == null)
+            _attackTimer = Cooldown;
+            if (TargetRoom == null)
             {
-                targetRoom = _ship.OpposingShip.SetRandomRoom();
+                TargetRoom = _ship.OpposingShip.SetRandomRoom();
                 SetUpProjectile();
-                targetRoom = null;
+                TargetRoom = null;
                 return;
             }
             SetUpProjectile();
@@ -93,9 +93,9 @@ public class Weapon : MonoBehaviour
             Debug.LogError($"{name}: Projectile does not have Projectile.cs script.");
             return;
         }
-        Projectile.targetRoom = targetRoom;
-        Projectile.damage = damage;
-        Projectile.opposingShip = _ship.OpposingShip;
+        Projectile.TargetRoom = TargetRoom;
+        Projectile.Damage = Damage;
+        Projectile.OpposingShip = _ship.OpposingShip;
     }
 }
 //rough code structure from https://www.youtube.com/watch?v=N4SFyoLBOS4, the 3rd example

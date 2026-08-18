@@ -8,11 +8,11 @@ using TMPro;
 
 public class PlacementManager : MonoBehaviour
 {
-    public static PlacementManager Instance;
-    [SerializeField] private GameObject _selectedRoomPrefab;
+    public static PlacementManager Instance { get; private set; }
+    private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
-    [SerializeField] private Slot _hoveredSlot; //refers to a single room in the ship
-    [SerializeField] private Room _hoveredRoom;
+    private Slot _hoveredSlot; //refers to a single room in the ship
+    private Room _hoveredRoom;
     [SerializeField] private Ship _ship;
     [SerializeField] private TMP_Text _roomLimitText;
     private Scene _currentScene;
@@ -72,12 +72,10 @@ public class PlacementManager : MonoBehaviour
                     if (_hoveredSlot != null) _hoveredSlot.Highlight(false); //sets highlight to inactive for previous slot
                     if (_hoveredRoom != null) _hoveredRoom.Target(false);
 
-                    //ADDED: removes target highlight from the previous weapon's target
                     if (_hoveredRoom != null)
                     {
                         Weapon weapon = _hoveredRoom.GetComponent<Weapon>();
-                        if (weapon != null && weapon.targetRoom != null)
-                            weapon.targetRoom.Target(false);
+                        if (weapon != null && weapon.TargetRoom != null) weapon.TargetRoom.Target(false);
                     }
 
                     _hoveredSlot = slot;  
@@ -93,7 +91,7 @@ public class PlacementManager : MonoBehaviour
                     if (_currentScene.name == "Combat" && room != null && room.ship.gameObject.name.Contains("Player"))
                     {
                         Weapon weapon = room.GetComponent<Weapon>();
-                        if (weapon != null && weapon.targetRoom != null) weapon.targetRoom.Target(true);
+                        if (weapon != null && weapon.TargetRoom != null) weapon.TargetRoom.Target(true);
                     }
                 }
                 return;
@@ -102,7 +100,7 @@ public class PlacementManager : MonoBehaviour
         if (_hoveredRoom != null && _currentScene.name == "Combat")
         {
             Weapon weapon = _hoveredRoom.GetComponent<Weapon>();
-            if (weapon != null && weapon.targetRoom != null) weapon.targetRoom.Target(false);
+            if (weapon != null && weapon.TargetRoom != null) weapon.TargetRoom.Target(false);
         }
         if (_hoveredSlot != null)
         {
@@ -136,7 +134,6 @@ public class PlacementManager : MonoBehaviour
                     return;
                 }
             }
-            
             _hoveredSlot.PlaceRoom(_selectedRoomPrefab); //calls the function for placing a room in Slot.cs
         }
 

@@ -7,22 +7,17 @@ using Unity.VisualScripting;
 
 public class CombatManager : MonoBehaviour
 {
-    public static CombatManager Instance;
+    public static CombatManager Instance { get; private set; }
     public bool CombatActive { get; private set; } = true;
-    [SerializeField] private Ship _playerShip;
-    [SerializeField] private Ship _enemyShip;
-    [SerializeField] private GameObject _victoryScreen;
-    [SerializeField] private GameObject _defeatScreen;
-    [SerializeField] private GameObject _drawScreen;
-    public Weapon selectedWeapon;
-    [SerializeField] private TMP_Text _timerText;
+    [SerializeField] private Ship _playerShip, _enemyShip;
+    [SerializeField] private GameObject _victoryScreen, _defeatScreen, _drawScreen;
+    public Weapon selectedWeapon { get; private set; }
+    [SerializeField] private TMP_Text _timerText, _combatNumberText, _victoryButtonText;
     [SerializeField] private float _combatTime = 120f;
     private float _timer;
-    [SerializeField] private TMP_Text _combatNumberText;
     [SerializeField] private GameObject _combatText;
-    [SerializeField] private List<Ship>_combat1EnemyForms = new();
-    [SerializeField] private List<Ship>_combat2EnemyForms = new();
-    [SerializeField] private List<Ship>_combat3EnemyForms = new();
+    [SerializeField] private List<Ship>_combat1EnemyForms, _combat2EnemyForms, _combat3EnemyForms = new();
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,7 +25,6 @@ public class CombatManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
 
         if (_playerShip == null)
@@ -60,20 +54,24 @@ public class CombatManager : MonoBehaviour
         }
         if (_combatNumberText == null)
         {
-            Debug.LogError($"{name}: Combat number text not set");
+            Debug.LogError($"{name}: Combat number text not set"); 
             return;
         }
         if (_combatText == null)
         {
-            Debug.LogError($"{name}: Combat number text not set");
+            Debug.LogError($"{name}: Combat number text not set"); 
+            return;
+        }
+        if (_victoryButtonText == null)
+        {
+            Debug.LogError($"{name}: Victory Button Text not set"); 
             return;
         }
 
         SpawnEnemyShip();
         if (_enemyShip == null)
         {
-            Debug.LogError($"{name}: Enemy ship missing");
-            return;
+            Debug.LogError($"{name}: Enemy ship missing"); return;
         }
 
         _playerShip.SetOpposingShip(_enemyShip);
@@ -150,7 +148,7 @@ public class CombatManager : MonoBehaviour
     void Update()
     {
         if (!CombatActive) return;
-        if(_playerShip.currentHealth <= 0 || _enemyShip.currentHealth <= 0) EndComat();
+        if(_playerShip.CurrentHealth <= 0 || _enemyShip.CurrentHealth <= 0) EndComat();
 
         if(_timer > 0) _timer -= Time.deltaTime;
         else if(_timer <= 0)
@@ -180,7 +178,7 @@ public class CombatManager : MonoBehaviour
 
             else if (room.ship == _enemyShip) if (selectedWeapon != null) 
             {
-                selectedWeapon.targetRoom = room;
+                selectedWeapon.TargetRoom = room;
                 selectedWeapon = null;
             }
         }
@@ -188,11 +186,14 @@ public class CombatManager : MonoBehaviour
     private void EndComat()
     {   
         if (_victoryScreen.activeSelf == true || _defeatScreen.activeSelf == true || _drawScreen.activeSelf == true) return;
-        if (_enemyShip.currentHealth <= 0)
+        if (_enemyShip.CurrentHealth <= 0)
         {
-            GameManager.Instance.CombatNumber += 1; _victoryScreen.SetActive(true);
+            if (GameManager.Instance.CombatNumber == 3) _victoryButtonText.text = "Finish Game";
+            
+            GameManager.Instance.CombatNumber += 1;
+            _victoryScreen.SetActive(true);
         }
-        else if (_playerShip.currentHealth <= 0) _defeatScreen.SetActive(true);
+        else if (_playerShip.CurrentHealth <= 0) _defeatScreen.SetActive(true);
         else if (_timer == 0) _drawScreen.SetActive(true);
         CombatActive = false;
         _combatText.SetActive(false);

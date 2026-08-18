@@ -17,9 +17,9 @@ public class PlayerShipBuilder : MonoBehaviour
     private void BuildShip()
     {
         SavingPlayerShip ship = GameManager.Instance.playerShip;
-        if (ship.rooms.Count == 0) return;
+        if (ship.Rooms.Count == 0) return;
         
-        foreach(RoomData room in ship.rooms)
+        foreach(RoomData room in ship.Rooms)
         {
             GameObject newRoom = Instantiate(room.prefab, _roomsParent);
             newRoom.transform.localPosition = room.position;

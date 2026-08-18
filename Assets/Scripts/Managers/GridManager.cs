@@ -10,11 +10,6 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-        GenerateGrid();
-    }
-
-    void GenerateGrid()
-    {
         if (_width <= 0)
         {
             Debug.LogError($"{name}: No width has been set or is negative");
@@ -26,6 +21,13 @@ public class GridManager : MonoBehaviour
             return;
         }
 
+        GenerateGrid();
+    }
+
+    void GenerateGrid()
+    {
+        if (_height <= 0 || _width <= 0) return;
+        
         for(int x = 0; x < _width; x++) //creates x amount of rows according to _width
         {
             for(int y = 0; y < _height; y++) //creates x amount of columns according to _height

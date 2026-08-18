@@ -28,6 +28,11 @@ public class RoomButtonManager : MonoBehaviour
             Debug.LogError("Room information lists aren't equal length.");
             return;
         }
+        if (_roomIcons.Length == 0 || _roomNames.Length == 0 || _roomPrefabs.Length == 0)
+        {
+            Debug.LogError("One or more of the room information lists have no values.");
+            return;
+        }
         for (int i = 0; i < _roomPrefabs.Length; i++) //creates x amount of buttons, according to the length of the lists above
         {
             GameObject buttonObj = Instantiate(_roomButtonPrefab, _roomsDisplay); //creates room button under the _roomsDisplay game object

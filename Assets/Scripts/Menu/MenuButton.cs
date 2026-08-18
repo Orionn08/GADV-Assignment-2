@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuButton : MonoBehaviour
 {
     [SerializeField] private GameObject _roomMenu, _roomMenuButton,  _startCombatButton;
+    
     void Awake()
     {
         if (_roomMenu == null)
@@ -26,6 +27,7 @@ public class MenuButton : MonoBehaviour
     public void ToggleRoomMenu() //gets called when the button is pressed
     {
         if (_roomMenu == null || _roomMenuButton == null || _startCombatButton == null) return;
+        
         if(!_roomMenu.activeSelf) //sets the room menu to the opposite state of what it was when the button was pressed
         {
             _roomMenuButton.transform.localPosition = new Vector2(-29, 5);

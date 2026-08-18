@@ -11,12 +11,12 @@ public class Room : MonoBehaviour
     public GameObject prefab;
     public float limit;
     private SpriteRenderer _roomRenderer;
-    public bool isDestroyed = false; 
+    public bool IsDestroyed { get; private set; } = false;
     public Ship ship;
     private List<GameObject> _healthPoints = new();
-    public int _maxHealth; //can be changed in inspector
+    public int MaxHealth; //can be changed in inspector
     [SerializeField] private int _baseMaxHealth;
-    public int currentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
+    public int CurrentHealth; //the current health of the room; when this hits 0, the room is considered destroyed
     [SerializeField] private GameObject _point;
     [SerializeField] private Transform _healthBar;
     //sets varibles for room's health
@@ -35,7 +35,7 @@ public class Room : MonoBehaviour
 
         _currentScene = SceneManager.GetActiveScene();
 
-        if (_maxHealth <= 0)
+        if (MaxHealth <= 0)
         {
             Debug.LogError($"{name}: Max health has not been set or is negative.");
             return;
@@ -77,7 +77,7 @@ public class Room : MonoBehaviour
             return;
         }
 
-        _baseMaxHealth = _maxHealth;
+        _baseMaxHealth = MaxHealth;
         CreateHealthPoints();
         
         _roomRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -87,18 +87,18 @@ public class Room : MonoBehaviour
     {
         if (_cooldownText != null)
         {
-            if (weapon != null) _cooldownText.text = $"{weapon.cooldown} s";
-            if (shield != null) _cooldownText.text = $"{shield.cooldown} s";
+            if (weapon != null) _cooldownText.text = $"{weapon.Cooldown} s";
+            if (shield != null) _cooldownText.text = $"{shield.Cooldown} s";
         }
-        if (_damageText != null && weapon != null) _damageText.text = $"{weapon.damage}";
+        if (_damageText != null && weapon != null) _damageText.text = $"{weapon.Damage}";
         
         RefreshSupportEffects();
     }
 
     public void CreateHealthPoints()
     {
-        currentHealth = _maxHealth;
-        for (float i = 0; i < _maxHealth; i++) //creates x amount of health points according to _maxHealth
+        CurrentHealth = MaxHealth;
+        for (float i = 0; i < MaxHealth; i++) //creates x amount of health points according to _maxHealth
         {
             float xPos = -3 + 0.5f * i; //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
@@ -117,26 +117,27 @@ public class Room : MonoBehaviour
 
     public void DamageTaken(int healthLost)
     {
-        if (isDestroyed == true) 
+        if (IsDestroyed == true) 
         {
             ship.HealthLost(healthLost);
             return;
         }
 
-        int startingHealth = currentHealth;
+        int startingHealth = CurrentHealth;
         for(int i = 0; i <= healthLost -1; i++)
         {
-            currentHealth--;
+            CurrentHealth--;
             GameObject healthPoint = _healthPoints[startingHealth -i -1];
             healthPoint.name = $"Health Point {startingHealth -i} (Empty)";
             healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
-            if (currentHealth == 0)
+            if (CurrentHealth == 0)
             {
                 _roomRenderer.color = new Color32(58, 58, 58, 255);
                 name = name + " (Destroyed)";
                 Destroy(_healthBar.gameObject);
-                isDestroyed = true;
-                if (_canvas != null) _canvas.SetActive(false);   
+                IsDestroyed = true;
+                if (_canvas != null) _canvas.SetActive(false);
+                if (weapon != null) weapon.TargetRoom = null;
                 ship.RefreshSupport(this);
                 ship.HealthLost(healthLost -i -1);
                 return;
@@ -146,37 +147,39 @@ public class Room : MonoBehaviour
 
     public void RefreshSupportEffects()
     {
-        if (isDestroyed == true) return;
+        if (IsDestroyed == true) return;
+
         ResetStats();
         foreach(Room room in ship.GetAdjacentRooms(this)) ApplySupport(room);
     }
 
     private void ResetStats()
     {   
-        _maxHealth = _baseMaxHealth;
-        currentHealth = _baseMaxHealth;
-        if (_maxHealth < _healthPoints.Count) DeleteExcessHealthPoints(_healthPoints.Count - _maxHealth);
+        if (_currentScene.name != "Combat") CurrentHealth = _baseMaxHealth;
+        else if (_baseMaxHealth != MaxHealth) CurrentHealth -= 2;
+        MaxHealth = _baseMaxHealth;
+        if (MaxHealth < _healthPoints.Count) DeleteExcessHealthPoints(_healthPoints.Count - MaxHealth);
 
         if (weapon != null)
         {
             _increasedDamage.SetActive(false);
-            weapon.damage = weapon.baseDamage;
-            _damageText.text = $"{weapon.damage}";
+            weapon.Damage = weapon.BaseDamage;
+            _damageText.text = $"{weapon.Damage}";
             _decreasedCooldown.SetActive(false);
-            weapon.cooldown = weapon.baseCooldown;
-            _cooldownText.text = $"{weapon.cooldown} s";
+            weapon.Cooldown = weapon.BaseCooldown;
+            _cooldownText.text = $"{weapon.Cooldown} s";
         }
-        else if(shield != null) 
+        else if(shield != null)
         {
             _decreasedCooldown.SetActive(false);
-            shield.cooldown = shield.baseCooldown;
-           _cooldownText.text = $"{shield.cooldown} s";
+            shield.Cooldown = shield.BaseCooldown;
+           _cooldownText.text = $"{shield.Cooldown} s";
         }
     }
 
     private void ApplySupport(Room supportRoom)
     {
-        if(supportRoom.isDestroyed == true) return;
+        if(supportRoom.IsDestroyed == true) return;
         if (supportRoom.prefab == null)
         {
             Debug.LogError($"{supportRoom.name} has a null prefab!");
@@ -185,22 +188,22 @@ public class Room : MonoBehaviour
 
         if (supportRoom.prefab.name == "Bridge") 
         {
-            _maxHealth += 2; currentHealth += 2;  
-            if (_maxHealth > _healthPoints.Count) CreateExtraHealthPoints(2);
+            MaxHealth += 2; CurrentHealth += 2;  
+            if (MaxHealth > _healthPoints.Count) CreateExtraHealthPoints(2);
         }
         else if (supportRoom.prefab.name == "Engine")
         {
             if (weapon != null)
             {
                 _decreasedCooldown.SetActive(true);
-                weapon.cooldown = weapon.cooldown * 0.8f;
-                _cooldownText.text = $"{weapon.cooldown} s";
+                weapon.Cooldown = weapon.Cooldown * 0.8f;
+                _cooldownText.text = $"{weapon.Cooldown} s";
             }
             else if (shield != null)
             {
                 _decreasedCooldown.SetActive(true);
-                shield.cooldown = shield.cooldown * 0.8f;
-                _cooldownText.text = $"{shield.cooldown} s";
+                shield.Cooldown = shield.Cooldown * 0.8f;
+                _cooldownText.text = $"{shield.Cooldown} s";
             }
         }
         else if (supportRoom.prefab.name == "Reactor")
@@ -208,8 +211,8 @@ public class Room : MonoBehaviour
             if (weapon != null)
             {
                 _increasedDamage.SetActive(true);
-                weapon.damage += 1;
-                _damageText.text = $"{weapon.damage}";
+                weapon.Damage += 1;
+                _damageText.text = $"{weapon.Damage}";
             }
         }
     }    
@@ -222,7 +225,8 @@ public class Room : MonoBehaviour
         {
             float xPos = xPosition + (0.5f * (i+1)); //determines the x position of the health point
             GameObject healthPoint = Instantiate(_point, _healthBar); //creates health point under the _healthBar game object
-            healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ExtraRoomHealth);
+            if (_currentScene.name == "Combat" && CurrentHealth < _baseMaxHealth) healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.Empty);
+            else healthPoint.GetComponentInChildren<Point>().SetPoint(PointType.ExtraRoomHealth);
             healthPoint.name = $"Health Point {_healthPoints.Count +1}"; //gives the health point a name according to the order it was spawned
             healthPoint.transform.localPosition = new Vector2(xPos, 1.5f);
             //ensures that each health point is next to each other but not overlap

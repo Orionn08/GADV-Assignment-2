@@ -4,6 +4,7 @@ public class SceneManager_ : MonoBehaviour
 {
     private Scene _currentScene;
     [SerializeField] private Transform _rooms;
+    
     public void ChangeScene(string sceneName)
     {
         _currentScene = SceneManager.GetActiveScene();
@@ -22,7 +23,6 @@ public class SceneManager_ : MonoBehaviour
             }
             if (GameManager.Instance.CombatNumber <= 3) GameManager.Instance.playerShip.SaveShip(_rooms);
         }
-        
         
         if (GameManager.Instance.CombatNumber > 3)
         {
