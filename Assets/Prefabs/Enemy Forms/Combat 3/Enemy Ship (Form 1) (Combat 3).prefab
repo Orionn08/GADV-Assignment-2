@@ -318,6 +318,7 @@ MonoBehaviour:
   cooldown: 5
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 4926866003227099317, guid: a986d0e04d8d48b45ad2eba6fd3549cf, type: 3}
 --- !u!1 &353717706690488995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1390,7 @@ MonoBehaviour:
   cooldown: 7
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 5161112350827875403, guid: 556f4c68129041440bbdf04d67b751e5, type: 3}
 --- !u!1 &2089123469787229580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,6 +2494,7 @@ MonoBehaviour:
   cooldown: 2
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 5264713198724900694, guid: 5225b317a8f770d4f810c4f3aba4efaf, type: 3}
 --- !u!1 &5637548637199499563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2903,6 +2906,7 @@ MonoBehaviour:
   cooldown: 2
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 5264713198724900694, guid: 5225b317a8f770d4f810c4f3aba4efaf, type: 3}
 --- !u!1 &6528156126981706561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3591,7 +3595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1377936192949100531, guid: 4ebed0357bf7f3e41833dc93e63e2b17, type: 3}
       propertyPath: m_Name
-      value: Laser Gun (1)
+      value: Laser Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3777,7 +3781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5781432111299921739, guid: 159b2535941bd0e44a4affc413245a6d, type: 3}
       propertyPath: m_Name
-      value: Shield Generator (1)
+      value: Shield Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

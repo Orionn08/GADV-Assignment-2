@@ -8,6 +8,7 @@ using TMPro;
 
 public class PlacementManager : MonoBehaviour
 {
+    public static PlacementManager Instance;
     [SerializeField] private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
     private Slot _hoveredSlot; //refers to a single room in the ship
@@ -17,6 +18,14 @@ public class PlacementManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         if (_roomSlot == null)
         {
             Debug.LogError($"{name}: Room slot prefab has not been set.");
@@ -112,8 +121,14 @@ public class PlacementManager : MonoBehaviour
     public int CountRooms(string prefab)
     {
         int count = 0;
-        foreach (Room room in _ship._rooms) if (room.prefab.name == prefab) count++;
+        foreach (Room room in _ship.rooms) if (room.prefab.name == prefab) count++;
         return count;
+    }
+
+    public void UponNoRooms()
+    {
+        _roomLimitText.text = "Combat cannot start with 0 rooms in the ship!";
+        StartCoroutine(ShowRoomText());
     }
 
     private IEnumerator ShowRoomText()

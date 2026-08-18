@@ -1,6 +1,7 @@
 //this script is for all weapons that can damage opponent's ships
 //it controls how often and when a weapon can be fired
 
+using NUnit.Compatibility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class Weapon : MonoBehaviour
     private float _attackTimer;
     private Scene _currentScene;
     public Room targetRoom;
+    [SerializeField] private GameObject _projectile;
 
     void Awake()
     {
@@ -46,6 +48,11 @@ public class Weapon : MonoBehaviour
             Debug.LogError($"{name}: No damage has been set or is negative");
             return;
         }
+        if (_projectile == null)
+        {
+            Debug.LogError($"{name}: No projectile has been set");
+            return;
+        }
 
         _attackTimer = cooldown + 0.25f + Random.Range(0f, 1f);
     }
@@ -64,8 +71,31 @@ public class Weapon : MonoBehaviour
         if (_attackTimer <= 0)
         {
             _attackTimer = cooldown;
-            _ship.OpposingShip.DamageTaken(damage, targetRoom);
+            if (targetRoom == null)
+            {
+                targetRoom = _ship.OpposingShip.SetRandomRoom();
+                SetUpProjectile();
+                targetRoom = null;
+                return;
+            }
+            SetUpProjectile();
         }
+    }
+
+    void SetUpProjectile()
+    {
+        GameObject ProjectileTransform;
+        Projectile Projectile;
+        ProjectileTransform = Instantiate(_projectile, transform.position, transform.rotation, transform);
+        Projectile = ProjectileTransform.GetComponent<Projectile>();
+        if (Projectile == null)
+        {
+            Debug.LogError($"{name}: Projectile does not have Projectile.cs script.");
+            return;
+        }
+        Projectile.targetRoom = targetRoom;
+        Projectile.damage = damage;
+        Projectile.opposingShip = _ship.OpposingShip;
     }
 }
 //rough code structure from https://www.youtube.com/watch?v=N4SFyoLBOS4, the 3rd example

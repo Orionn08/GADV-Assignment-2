@@ -8,10 +8,9 @@ using Unity.VisualScripting;
 
 public class Ship : MonoBehaviour
 {
-    private GameObject _ship;
     private List<GameObject> _healthPoints = new();
     private List<GameObject> _sheildPoints = new();
-    public List<Room> _rooms = new();
+    public List<Room> rooms = new();
     [SerializeField] private Transform _roomsParent;
     [SerializeField] private int _maxHealth, _maxShield; //can be changed in inspector
     [HideInInspector] public int currentHealth, currentShield;
@@ -19,19 +18,15 @@ public class Ship : MonoBehaviour
     [SerializeField] private Transform _shieldBar, _healthBar;
     //sets varibles for ship's health and shield
     private Scene currentScene;
-
-    [SerializeField] private Ship _opposingShip;
-
-    public Ship OpposingShip => _opposingShip;
+    public Ship OpposingShip;
 
     public void SetOpposingShip(Ship ship)
     {
-        _opposingShip = ship;
+        OpposingShip = ship;
     }
 
     void Awake()
     {
-        _ship = gameObject;
         currentScene = SceneManager.GetActiveScene();
 
         currentHealth = _maxHealth; 
@@ -92,7 +87,7 @@ public class Ship : MonoBehaviour
         foreach (Transform RoomTransform in _roomsParent)
         {
             Room room = RoomTransform.GetComponent<Room>();
-            if(room != null) _rooms.Add(room);
+            if(room != null) rooms.Add(room);
         }
     }
 
@@ -108,7 +103,7 @@ public class Ship : MonoBehaviour
         foreach (Vector2 offset in Offsets)
         {
             Vector2 position = (Vector2)centerRoom.transform.localPosition + offset;
-            foreach(Room room in _rooms)
+            foreach(Room room in rooms)
             {
                 if((Vector2)room.transform.localPosition == position)
                 {
@@ -120,17 +115,22 @@ public class Ship : MonoBehaviour
         return Adjacent;
     }
 
+    public Room SetRandomRoom()
+    {
+        Room RandomRoom = rooms[Random.Range(0, rooms.Count)];
+        return RandomRoom;
+    }
     public void DamageTaken(int damage, Room targetRoom = null)
     {
+        if (targetRoom == null)
+        {
+            Debug.LogError($"{name}: Target room is null.");
+            return;
+        }
+
         if (currentShield > 0) 
         {
             ShieldLost(damage, targetRoom);
-            return;
-        }
-        else if (targetRoom == null)
-        {
-            Room RandomRoom = _rooms[Random.Range(0, _rooms.Count)];
-            RandomRoom.DamageTaken(damage);
             return;
         }
         else if(targetRoom.currentHealth > 0)
@@ -173,7 +173,7 @@ public class Ship : MonoBehaviour
             {
                 if (targetRoom == null)
                 {
-                    Room RandomRoom = _rooms[Random.Range(0, _rooms.Count)];
+                    Room RandomRoom = rooms[Random.Range(0, rooms.Count)];
                     RandomRoom.DamageTaken(shieldLost -i -1);
                 }
                 else targetRoom.DamageTaken(shieldLost -i -1);
@@ -198,7 +198,7 @@ public class Ship : MonoBehaviour
 
     public void AddRoom(Room room)
     {
-        _rooms.Add(room);
+        rooms.Add(room);
         room.RefreshSupportEffects();
 
         foreach (Room Neighbour in GetAdjacentRooms(room)) Neighbour.RefreshSupportEffects();
@@ -207,7 +207,7 @@ public class Ship : MonoBehaviour
     public void RemoveRoom(Room room)
     {
         List<Room> Neighbours = GetAdjacentRooms(room);
-        _rooms.Remove(room);
+        rooms.Remove(room);
 
         foreach (Room Neighbour in Neighbours) Neighbour.RefreshSupportEffects();
     }

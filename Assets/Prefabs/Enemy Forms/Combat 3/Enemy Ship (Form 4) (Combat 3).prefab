@@ -654,6 +654,7 @@ MonoBehaviour:
   cooldown: 2
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 5264713198724900694, guid: 5225b317a8f770d4f810c4f3aba4efaf, type: 3}
 --- !u!1 &3914945801378636205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1533,7 @@ MonoBehaviour:
   cooldown: 2
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 5264713198724900694, guid: 5225b317a8f770d4f810c4f3aba4efaf, type: 3}
 --- !u!1 &7314695061564407698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,6 +2064,7 @@ MonoBehaviour:
   cooldown: 5
   baseCooldown: 0
   targetRoom: {fileID: 0}
+  _projectile: {fileID: 4926866003227099317, guid: a986d0e04d8d48b45ad2eba6fd3549cf, type: 3}
 --- !u!1 &8685481080195450860
 GameObject:
   m_ObjectHideFlags: 0
