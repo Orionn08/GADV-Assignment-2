@@ -139,16 +139,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818ffcb049201314b9d9126f15a3a654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  _rooms: []
+  rooms: []
   _roomsParent: {fileID: 8727160759230294847}
-  _maxHealth: 7
+  _maxHealth: 10
   _maxShield: 3
   currentHealth: 0
   currentShield: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _shieldBar: {fileID: 6158011778846298389}
   _healthBar: {fileID: 4145819369527495499}
-  _opposingShip: {fileID: 0}
+  OpposingShip: {fileID: 0}
 --- !u!1 &6989639332102094776
 GameObject:
   m_ObjectHideFlags: 0

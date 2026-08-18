@@ -3,12 +3,18 @@
 using UnityEngine;
 public class Slot : MonoBehaviour
 {
-    [SerializeField] private GameObject _highlight;
+    [SerializeField] private GameObject _highlight, _target;
     private Ship ship;
 
     private void Awake()
     {
         ship = GetComponentInParent<Ship>();
+
+        if (_highlight == null)
+        {
+            Debug.LogError($"{name}: Highlight has not been set.");
+            return;
+        }
     }
 
     public void Highlight(bool state) //sets the highlight object to the opposite state it was originally at

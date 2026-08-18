@@ -4,6 +4,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Room : MonoBehaviour
 {   
@@ -21,13 +22,18 @@ public class Room : MonoBehaviour
     //sets varibles for room's health
     private Weapon weapon;
     private Shield shield;
+    [SerializeField] private TMP_Text _cooldownText, _damageText;
+    [SerializeField] private GameObject _decreasedCooldown, _increasedDamage, _canvas;
     private Scene _currentScene;
+    public GameObject target;
 
     void Awake()
     {
         ship = GetComponentInParent<Ship>();
         weapon = GetComponent<Weapon>();
         shield = GetComponent<Shield>();
+
+        _currentScene = SceneManager.GetActiveScene();
 
         if (_maxHealth <= 0)
         {
@@ -41,7 +47,33 @@ public class Room : MonoBehaviour
         }
         if (ship == null)
         {
-            Debug.LogError($"{name}: Ship is null");
+            Debug.LogError($"{name}: Ship is null.");
+            return;
+        }
+        if (weapon != null || shield != null)
+        {
+            if (_canvas == null)
+            {
+                Debug.LogError($"{name}: Canvas has not been set.");
+                return;
+            }
+            if (_cooldownText == null)
+            {
+                Debug.LogError($"{name}: Cooldown text has not been set.");
+                return;
+            }
+        }
+        if (weapon != null)
+        {
+            if (_damageText == null)
+            {
+                Debug.LogError($"{name}: Damage text has not been set.");
+                return;
+            }
+        }
+        if (target == null)
+        {
+            Debug.LogError($"{name}: Target has not been set.");
             return;
         }
 
@@ -53,11 +85,16 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        _currentScene = SceneManager.GetActiveScene();
-        if (_currentScene.name != "Combat") return;
-        CreateHealthPoints();
+        if (_cooldownText != null)
+        {
+            if (weapon != null) _cooldownText.text = $"{weapon.cooldown} s";
+            if (shield != null) _cooldownText.text = $"{shield.cooldown} s";
+        }
+        if (_damageText != null && weapon != null) _damageText.text = $"{weapon.damage}";
+        
         RefreshSupportEffects();
     }
+
     public void CreateHealthPoints()
     {
         currentHealth = _maxHealth;
@@ -71,6 +108,11 @@ public class Room : MonoBehaviour
             //ensures that each health point is next to each other but not overlap
             _healthPoints.Add(healthPoint);
         }
+    }
+
+    public void Target(bool state) //sets the highlight object to the opposite state it was originally at
+    {
+        target.SetActive(state); //turns on and off highlight so the player can see what room they are hovering over
     }
 
     public void DamageTaken(int healthLost)
@@ -94,6 +136,7 @@ public class Room : MonoBehaviour
                 name = name + " (Destroyed)";
                 Destroy(_healthBar.gameObject);
                 isDestroyed = true;
+                if (_canvas != null) _canvas.SetActive(false);   
                 ship.RefreshSupport(this);
                 ship.HealthLost(healthLost -i -1);
                 return;
@@ -116,34 +159,59 @@ public class Room : MonoBehaviour
 
         if (weapon != null)
         {
+            _increasedDamage.SetActive(false);
             weapon.damage = weapon.baseDamage;
+            _damageText.text = $"{weapon.damage}";
+            _decreasedCooldown.SetActive(false);
             weapon.cooldown = weapon.baseCooldown;
+            _cooldownText.text = $"{weapon.cooldown} s";
         }
-        else if(shield != null) shield.cooldown = shield.baseCooldown;
+        else if(shield != null) 
+        {
+            _decreasedCooldown.SetActive(false);
+            shield.cooldown = shield.baseCooldown;
+           _cooldownText.text = $"{shield.cooldown} s";
+        }
     }
 
     private void ApplySupport(Room supportRoom)
     {
         if(supportRoom.isDestroyed == true) return;
-            if (supportRoom.prefab == null)
-            {
-                Debug.LogError($"{supportRoom.name} has a null prefab!");
-                return;
-            }
+        if (supportRoom.prefab == null)
+        {
+            Debug.LogError($"{supportRoom.name} has a null prefab!");
+            return;
+        }
 
-            Weapon weapon = GetComponent<Weapon>();
-            Shield shield = GetComponent<Shield>();
-           if (supportRoom.prefab.name == "Bridge") 
+        if (supportRoom.prefab.name == "Bridge") 
+        {
+            _maxHealth += 2; currentHealth += 2;  
+            if (_maxHealth > _healthPoints.Count) CreateExtraHealthPoints(2);
+        }
+        else if (supportRoom.prefab.name == "Engine")
+        {
+            if (weapon != null)
             {
-                _maxHealth += 2; currentHealth += 2;  
-                if (_maxHealth > _healthPoints.Count) CreateExtraHealthPoints(2);
+                _decreasedCooldown.SetActive(true);
+                weapon.cooldown = weapon.cooldown * 0.8f;
+                _cooldownText.text = $"{weapon.cooldown} s";
             }
-            else if (supportRoom.prefab.name == "Engine")
+            else if (shield != null)
             {
-                if (weapon != null) weapon.cooldown = weapon.cooldown * 0.8f;
-                else if (shield != null) shield.cooldown = shield.cooldown * 0.8f;
+                _decreasedCooldown.SetActive(true);
+                shield.cooldown = shield.cooldown * 0.8f;
+                _cooldownText.text = $"{shield.cooldown} s";
             }
-            else if (supportRoom.prefab.name == "Reactor") if (weapon != null) weapon.damage += 1;
+        }
+        else if (supportRoom.prefab.name == "Reactor")
+        {
+            if (weapon != null)
+            {
+                _increasedDamage.SetActive(true);
+                weapon.damage += 1;
+                _damageText.text = $"{weapon.damage}";
+            }
+        }
     }    
 
     private void CreateExtraHealthPoints(float extraHealthPoints)

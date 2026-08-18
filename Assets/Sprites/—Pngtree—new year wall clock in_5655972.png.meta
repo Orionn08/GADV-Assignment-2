@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cb94a57f09913db4892b9d9518136075
+guid: 9f102dd687dc3554ab6768003a4c2584
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6394629162234745215
-    second: Screenshot 2026-08-18 154530_0
+      213: 6624382006650176475
+    second: "\u2014Pngtree\u2014new year wall clock in_5655972_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Screenshot 2026-08-18 154530_0
+      name: "\u2014Pngtree\u2014new year wall clock in_5655972_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 704
-        height: 407
+        x: 465
+        y: 465
+        width: 1270
+        height: 1270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f711b55c7594eb850800000000000000
-      internalID: 6394629162234745215
+      spriteID: bd38fda66588eeb50800000000000000
+      internalID: 6624382006650176475
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Screenshot 2026-08-18 154530_0: 6394629162234745215
+      "\u2014Pngtree\u2014new year wall clock in_5655972_0": 6624382006650176475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

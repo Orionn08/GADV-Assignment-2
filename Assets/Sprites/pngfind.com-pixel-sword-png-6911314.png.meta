@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cb94a57f09913db4892b9d9518136075
+guid: 1328b807892c4814aba2ed2e2bda09c8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6394629162234745215
-    second: Screenshot 2026-08-18 154530_0
+      213: 5507367281236666698
+    second: pngfind.com-pixel-sword-png-6911314_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Screenshot 2026-08-18 154530_0
+      name: pngfind.com-pixel-sword-png-6911314_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 704
-        height: 407
+        width: 433
+        height: 433
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f711b55c7594eb850800000000000000
-      internalID: 6394629162234745215
+      spriteID: a4968bdec591e6c40800000000000000
+      internalID: 5507367281236666698
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Screenshot 2026-08-18 154530_0: 6394629162234745215
+      pngfind.com-pixel-sword-png-6911314_0: 5507367281236666698
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

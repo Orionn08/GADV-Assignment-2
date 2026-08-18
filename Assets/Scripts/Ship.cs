@@ -28,6 +28,11 @@ public class Ship : MonoBehaviour
     void Awake()
     {
         currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Combat")
+        {
+            _healthBar.transform.localPosition = new Vector2(-15, 17);
+            _shieldBar.transform.localPosition = new Vector2(-15, 13);
+        }
 
         currentHealth = _maxHealth; 
         currentShield = 0;
@@ -223,3 +228,4 @@ public class Ship : MonoBehaviour
     }
     //edited with the help of Chat GPT
 }
+//code taken from chat gpt and modified

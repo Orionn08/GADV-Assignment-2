@@ -11,7 +11,8 @@ public class PlacementManager : MonoBehaviour
     public static PlacementManager Instance;
     [SerializeField] private GameObject _selectedRoomPrefab;
     [SerializeField] private GameObject _roomSlot;
-    private Slot _hoveredSlot; //refers to a single room in the ship
+    [SerializeField] private Slot _hoveredSlot; //refers to a single room in the ship
+    [SerializeField] private Room _hoveredRoom;
     [SerializeField] private Ship _ship;
     [SerializeField] private TMP_Text _roomLimitText;
     private Scene _currentScene;
@@ -49,6 +50,7 @@ public class PlacementManager : MonoBehaviour
 
     void Update()
     {
+        if (_currentScene.name == "Combat" && CombatManager.Instance.CombatActive == false) return;
         OnHover();
         OnClick();
     }
@@ -62,24 +64,55 @@ public class PlacementManager : MonoBehaviour
         if (hit.collider != null) //checks if anything was hit
         {
             Slot slot = hit.collider.GetComponent<Slot>(); //checks if the object has the slot.cs script attached
-
+            Room room = slot.GetComponent<Room>();
             if (slot != null)
             {
                 if (_hoveredSlot != slot) //checks if the mouse is on a new slot
                 {
-                    if (_hoveredSlot != null)
-                        _hoveredSlot.Highlight(false); //sets highlight to inactive for previous slot
+                    if (_hoveredSlot != null) _hoveredSlot.Highlight(false); //sets highlight to inactive for previous slot
+                    if (_hoveredRoom != null) _hoveredRoom.Target(false);
 
-                    _hoveredSlot = slot;  //stores new slot
+                    //ADDED: removes target highlight from the previous weapon's target
+                    if (_hoveredRoom != null)
+                    {
+                        Weapon weapon = _hoveredRoom.GetComponent<Weapon>();
+                        if (weapon != null && weapon.targetRoom != null)
+                            weapon.targetRoom.Target(false);
+                    }
+
+                    _hoveredSlot = slot;  
+                    if (room != null) _hoveredRoom = room; //stores new slot
+
+                    if (_currentScene.name == "Combat" && room != null && room.ship.gameObject.name.Contains("Enemy")
+                        && CombatManager.Instance.selectedWeapon != null)
+                    {
+                        room.Target(true);
+                        return;
+                    }
                     _hoveredSlot.Highlight(true); //sets highlight to active
+                    if (_currentScene.name == "Combat" && room != null && room.ship.gameObject.name.Contains("Player"))
+                    {
+                        Weapon weapon = room.GetComponent<Weapon>();
+                        if (weapon != null && weapon.targetRoom != null) weapon.targetRoom.Target(true);
+                    }
                 }
                 return;
             }
+        }
+        if (_hoveredRoom != null && _currentScene.name == "Combat")
+        {
+            Weapon weapon = _hoveredRoom.GetComponent<Weapon>();
+            if (weapon != null && weapon.targetRoom != null) weapon.targetRoom.Target(false);
         }
         if (_hoveredSlot != null)
         {
             _hoveredSlot.Highlight(false);
             _hoveredSlot = null;
+        }
+        if (_hoveredRoom != null)
+        {
+            _hoveredRoom.Target(false);
+            _hoveredRoom = null;
         }
     }
 
@@ -107,10 +140,9 @@ public class PlacementManager : MonoBehaviour
             _hoveredSlot.PlaceRoom(_selectedRoomPrefab); //calls the function for placing a room in Slot.cs
         }
 
-        if (Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            _hoveredSlot.DeleteRoom(_roomSlot); //calls the function for deleting a room in Slot.cs
-        }
+        if (Mouse.current.rightButton.wasPressedThisFrame) _hoveredSlot.DeleteRoom(_roomSlot); 
+        //calls the function for deleting a room in Slot.cs
+        
     }
 
     public void SetSelectedRoom(GameObject roomPrefab) //is called by RoomButton.cs
@@ -136,7 +168,7 @@ public class PlacementManager : MonoBehaviour
         _roomLimitText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         _roomLimitText.gameObject.SetActive(false);
-    }
+    } //code taken from chat gpt
 }
 
 //code taken from chat gpt and modified

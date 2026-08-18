@@ -14,11 +14,12 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject _victoryScreen;
     [SerializeField] private GameObject _defeatScreen;
     [SerializeField] private GameObject _drawScreen;
-    private Weapon _selectedWeapon;
+    public Weapon selectedWeapon;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private float _combatTime = 120f;
     private float _timer;
     [SerializeField] private TMP_Text _combatNumberText;
+    [SerializeField] private GameObject _combatText;
     [SerializeField] private List<Ship>_combat1EnemyForms = new();
     [SerializeField] private List<Ship>_combat2EnemyForms = new();
     [SerializeField] private List<Ship>_combat3EnemyForms = new();
@@ -58,6 +59,11 @@ public class CombatManager : MonoBehaviour
             return;   
         }
         if (_combatNumberText == null)
+        {
+            Debug.LogError($"{name}: Combat number text not set");
+            return;
+        }
+        if (_combatText == null)
         {
             Debug.LogError($"{name}: Combat number text not set");
             return;
@@ -160,7 +166,6 @@ public class CombatManager : MonoBehaviour
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-
             if (hit.collider == null) return;
 
             Room room = hit.collider.GetComponent<Room>();
@@ -169,11 +174,15 @@ public class CombatManager : MonoBehaviour
             if (room.ship == _playerShip)
             {
                 Weapon weapon = room.GetComponent<Weapon>();
-                if (weapon != null) _selectedWeapon = weapon;
-                else _selectedWeapon = null;
+                if (weapon != null) selectedWeapon = weapon;
+                else selectedWeapon = null;
             }
 
-            else if (room.ship == _enemyShip) if (_selectedWeapon != null) _selectedWeapon.targetRoom = room;
+            else if (room.ship == _enemyShip) if (selectedWeapon != null) 
+            {
+                selectedWeapon.targetRoom = room;
+                selectedWeapon = null;
+            }
         }
     }
     private void EndComat()
@@ -183,11 +192,11 @@ public class CombatManager : MonoBehaviour
         {
             GameManager.Instance.CombatNumber += 1; _victoryScreen.SetActive(true);
         }
-        if (_playerShip.currentHealth <= 0) _defeatScreen.SetActive(true);
-        if (_timer == 0) _drawScreen.SetActive(true);
+        else if (_playerShip.currentHealth <= 0) _defeatScreen.SetActive(true);
+        else if (_timer == 0) _drawScreen.SetActive(true);
         CombatActive = false;
-        _timerText.gameObject.SetActive(false);
-        _combatNumberText.gameObject.SetActive(false);
+        _combatText.SetActive(false);
+
     }
     //made with the help of Chat GPT
 }

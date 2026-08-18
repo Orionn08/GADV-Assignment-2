@@ -49,14 +49,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818ffcb049201314b9d9126f15a3a654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  _maxHealth: 10
+  rooms: []
+  _roomsParent: {fileID: 0}
+  _maxHealth: 15
   _maxShield: 6
   currentHealth: 0
   currentShield: 0
   _point: {fileID: 7495536316534932738, guid: b45bfc4a2d6d5b347b1a08b5f93a4a54, type: 3}
   _shieldBar: {fileID: 2003902906425993694}
   _healthBar: {fileID: 1023854198334359639}
-  _opposingShip: {fileID: 0}
+  OpposingShip: {fileID: 0}
 --- !u!114 &4281577950539187235
 MonoBehaviour:
   m_ObjectHideFlags: 0
