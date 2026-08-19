@@ -1,3 +1,7 @@
+//GitHub Repository: https://github.com/Orionn08/GADV-Assignment-2
+//this script holds the dictionary of the different colors that the various point types have,
+//allowing other scripts to call for a point to be a specific type, via changing color, using a method in this script
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -8,11 +12,11 @@ public enum PointType
     ShipHealth,
     Shield,
     ExtraRoomHealth
-}
+} //creates the references of the different types of points for the dictionary below and also for other scripts to more easily call a specific point type.
 
 public class Point : MonoBehaviour
 {
-    private SpriteRenderer _pointRenderer;
+    private SpriteRenderer _pointRenderer; //needs to be referenced or else the color of the object, which is what determines the point type, can't be changed.
 
     private Dictionary<PointType, Color> _pointColors = new Dictionary<PointType, Color>()
     {
@@ -26,11 +30,17 @@ public class Point : MonoBehaviour
     private void Awake()
     {
         _pointRenderer = GetComponent<SpriteRenderer>();
+
+        if (_pointRenderer == null)
+        {
+            Debug.LogError($"{name}: Point renderer cannot be found");
+            return;
+        }
     }
 
     public void SetPoint(PointType type)
     {
         _pointRenderer.color = _pointColors[type];
-    }
+    } //sets the type of the point, by changing its color, based on what type the other script wants.
 }
 //code taken from chat gpt and modified

@@ -188,9 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  prefab: {fileID: 7984739464435304697}
-  limit: 1
-  ship: {fileID: 0}
+  Prefab: {fileID: 7984739464435304697}
+  Limit: 1
+  Ship: {fileID: 0}
   MaxHealth: 10
   _baseMaxHealth: 0
   CurrentHealth: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   _decreasedCooldown: {fileID: 0}
   _increasedDamage: {fileID: 0}
   _canvas: {fileID: 0}
-  target: {fileID: 3742739002243063791}
+  TargetIcon: {fileID: 3742739002243063791}
 --- !u!4 &8739807853354962467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3113373421966739155, guid: fbefef8fbd19f34438695e8e5d3e20fe, type: 3}

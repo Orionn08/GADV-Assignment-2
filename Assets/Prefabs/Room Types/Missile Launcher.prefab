@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSlot
   _highlight: {fileID: 771584945381428198}
-  _target: {fileID: 0}
 --- !u!61 &2811336159551767487
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1119508ef090df34986568a21aab48c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  prefab: {fileID: 712204939152078985}
-  limit: 5
-  ship: {fileID: 0}
+  Prefab: {fileID: 712204939152078985}
+  Limit: 5
+  Ship: {fileID: 0}
   MaxHealth: 6
   _baseMaxHealth: 0
   CurrentHealth: 0
@@ -217,7 +216,7 @@ MonoBehaviour:
   _decreasedCooldown: {fileID: 3700492153175106623}
   _increasedDamage: {fileID: 1969074952670051570}
   _canvas: {fileID: 6535969157959234176}
-  target: {fileID: 3005560409723931688}
+  TargetIcon: {fileID: 3005560409723931688}
 --- !u!114 &3690558918539089152
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-//this script creates the room buttons using a prefab
+//GitHub Repository: https://github.com/Orionn08/GADV-Assignment-2
+//this script creates the room buttons using a prefab, it stores some of the information needed to be shown to the player;
+//grabs the other necessary information from the prefab itself to show to the player.
 
 using UnityEngine;
 
@@ -32,7 +34,8 @@ public class RoomButtonManager : MonoBehaviour
         {
             Debug.LogError("One or more of the room information lists have no values.");
             return;
-        }
+        } //bunch of safety precautions as the script needs everything here to be set properly in order to work.
+
         for (int i = 0; i < _roomPrefabs.Length; i++) //creates x amount of buttons, according to the length of the lists above
         {
             GameObject buttonObj = Instantiate(_roomButtonPrefab, _roomsDisplay); //creates room button under the _roomsDisplay game object
